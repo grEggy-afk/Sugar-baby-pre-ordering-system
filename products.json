@@ -1,32 +1,78 @@
-[
-  {
-    "name": "Classic Pearl Milk Tea",
-    "category": "Classic Series",
-    "price": 110.00
-  },
-  {
-    "name": "Okinawa Brown Sugar",
-    "category": "Specialty",
-    "price": 130.00
-  },
-  {
-    "name": "Taro Milk Tea",
-    "category": "Flavored Tea",
-    "price": 120.00
-  },
-  {
-    "name": "Matcha Cream Cheese",
-    "category": "Cheese Foam",
-    "price": 140.00
-  },
-  {
-    "name": "Wintermelon Milk Tea",
-    "category": "Classic Series",
-    "price": 115.00
-  },
-  {
-    "name": "Mango Fruit Tea",
-    "category": "Fruit Tea",
-    "price": 125.00
-  }
-]
+{
+  "shop": "Sugar Baby Milk Tea & Coffee",
+  "sizes": [
+    { "name": "REGULAR", "oz": "12oz", "promo_price": 25, "original_price": 30 },
+    { "name": "LARGE", "oz": "16oz", "price": 35 },
+    { "name": "XLARGE", "oz": "22oz", "price": 45 },
+    { "name": "JUMBO", "oz": "29oz", "price": 60 }
+  ],
+  "categories": [
+    {
+      "name": "MILK TEA",
+      "items": [
+        "Belgian Chocolate", "Wintermelon", "Okinawa", "Red Velvet", 
+        "Cookies & Cream", "Double Dutch", "Choco Chips", "Strawberry", 
+        "Choco Cookies", "Cheesecake", "Caramel Macchiato", "Matcha", 
+        "Salted Caramel", "Avocado", "Mango", "Choco Fudge", "Chocolate"
+      ]
+    },
+    {
+      "name": "COFFEE",
+      "items": [
+        "Black Coffee", "Wintermelon", "Belgian Chocolate", "Cookies & Cream", 
+        "Caramel Macchiato", "Java Chip", "Matcha", "Salted Caramel", "Choco Cookies"
+      ]
+    },
+    {
+      "name": "FRUIT TEA",
+      "items": ["Wintermelon", "Green Apple", "Mango", "Lychee", "Strawberry", "Peach Mango"]
+    },
+    {
+      "name": "MANGO - AVO GRAHAM",
+      "items": [
+        { "name": "Mango Graham", "prices": { "Regular": 30, "Large": 40, "XLarge": 50, "Jumbo": 65 } },
+        { "name": "Mango Tema", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } },
+        { "name": "Mango Choco Bravo", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } },
+        { "name": "Mango Cheesecake Graham", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } },
+        { "name": "Avocado Graham", "prices": { "Regular": 30, "Large": 40, "XLarge": 50, "Jumbo": 65 } },
+        { "name": "Avocado Tema", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } },
+        { "name": "Avocado Choco Bravo", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } },
+        { "name": "Avocado Cheesecake Graham", "prices": { "Regular": 35, "Large": 45, "XLarge": 55, "Jumbo": 70 } }
+      ]
+    },
+    {
+      "name": "CHEESECAKE FRAPPE",
+      "cream_base": [
+        { "name": "Strawberry", "L": 49, "XL": 59 },
+        { "name": "Chocolate", "L": 49, "XL": 59 },
+        { "name": "Cookies & Cream", "L": 49, "XL": 59 },
+        { "name": "Matcha", "L": 49, "XL": 59 },
+        { "name": "Choco Chip", "L": 49, "XL": 59 },
+        { "name": "Double Dutch", "L": 49, "XL": 59 }
+      ],
+      "coffee_base": [
+        { "name": "Caramel Macchiato", "L": 49, "XL": 59 },
+        { "name": "Coffee Matcha", "L": 49, "XL": 59 },
+        { "name": "Salted Caramel", "L": 49, "XL": 59 },
+        { "name": "Java Chip", "L": 49, "XL": 59 },
+        { "name": "Dark Mocha", "L": 49, "XL": 59 }
+      ]
+    },
+    {
+      "name": "HOT DRINKS",
+      "items": [
+        { "name": "Coffee", "price": 25 },
+        { "name": "Choco", "price": 25 },
+        { "name": "Mocha", "price": 25 }
+      ]
+    }
+  ],
+  "add_ons": [
+    { "name": "Cotton Candy", "price": 10 },
+    { "name": "Pearl", "price": 10 },
+    { "name": "Nata", "price": 10 },
+    { "name": "Coffee Jelly", "price": 10 },
+    { "name": "Cream Puff", "price": 10 },
+    { "name": "Oreo", "price": 10 }
+  ]
+}
