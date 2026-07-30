@@ -65,8 +65,17 @@
         { "name": "Choco", "price": 25 },
         { "name": "Mocha", "price": 25 }
       ]
+    },
+
+   {
+      "name": "SNACKS",
+      "items": [
+        { "name": "Siopao Asado", "price": 35 },
+        { "name": "Pork Siomai", "price": 25 }
+      ]
     }
   ],
+
   "add_ons": [
     { "name": "Cotton Candy", "price": 10 },
     { "name": "Pearl", "price": 10 },

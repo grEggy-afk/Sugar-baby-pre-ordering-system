@@ -369,8 +369,26 @@ function handleFormSubmit(e) {
     const available = document.getElementById('editItemAvailability').value === 'true';
 
     if (index === '') {
-        productsList.push({ name, category, prices: { "Standard": 35 }, available });
+        // Adding a new item with standard default prices or fallback based on category, including SNACKS
+        let defaultPrices = { "Standard": 35 };
+        if (category === "MILK TEA" || category === "COFFEE" || category === "FRUIT TEA") {
+            defaultPrices = { "REGULAR": 25, "LARGE": 35, "XLARGE": 45, "JUMBO": 60 };
+        } else if (category === "HOT DRINKS") {
+            defaultPrices = { "Standard": 25 };
+        } else if (category === "SNACKS") {
+            defaultPrices = { "Standard": 35 };
+        } else if (category === "ADD-ONS") {
+            defaultPrices = { "Standard": 10 };
+        }
+        
+        productsList.push({ 
+            name, 
+            category, 
+            prices: defaultPrices, 
+            available 
+        });
     } else {
+        // Updating an existing item while preserving its original prices and structure
         productsList[index].name = name;
         productsList[index].category = category;
         productsList[index].available = available;
