@@ -834,7 +834,7 @@
       </section>
 
       <!-- 2. MENU VIEW -->
-      <section id="menu" class="tab-content"
+      <section id="menu" class="tab-content">
         <div class="inventory-header">
           <div>
             <h2 style="color: var(--text-main);">Sugar Baby Menu</h2>
@@ -844,7 +844,22 @@
           <div class="action-controls">
             <!-- SORT DROPDOWN -->
             <select id="sortSelect" class="sort-select">
-          
+              <option value="" disabled selected>Sort By</option>
+              <option value="price-low">▼ Price Low to High</option>
+              <option value="price-high">▼ Price High to Low</option>
+              <option value="name-az">▼ Name A-Z</option>
+              <option value="name-za">▼ Name Z-A</option>
+            </select>
+
+            <button id="toggleBtn" class="btn-toggle">
+              <i class="fa-solid fa-eye"></i> <span>Show Products</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="statusMsg" class="status-msg">Click "Show Products" to view our menu.</div>
+        <div id="productGrid" class="products-grid hidden"></div>
+      </section>
 
       <!-- 3. ORDERS VIEW -->
       <section id="orders" class="tab-content">
