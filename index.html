@@ -15,11 +15,11 @@
       --bg-sidebar: #cbebff;         /* Pastel Light Blue */
       --bg-card: #ffffff;            /* Pure White */
       --text-main: #2d3748;          /* Deep Slate for high contrast */
-      --text-muted: #62728d;        /* Muted Blue-Grey */
-      --pastel-yellow: #fff2a8;     /* Soft Yellow */
+      --text-muted: #62728d;         /* Muted Blue-Grey */
+      --pastel-yellow: #fff2a8;      /* Soft Yellow */
       --pastel-yellow-dark: #f0db6e;/* Darker Yellow for borders/hover */
-      --pastel-blue: #cbebff;       /* Soft Light Blue */
-      --pastel-pink: #ffd6e7;       /* Soft Pink */
+      --pastel-blue: #cbebff;        /* Soft Light Blue */
+      --pastel-pink: #ffd6e7;        /* Soft Pink */
       --pastel-pink-dark: #fca1c9;  /* Pink Border Accent */
       --border: #f0e6db;             /* Light Neutral Border */
       --sidebar-text: #2c3e50;
@@ -100,22 +100,19 @@
       object-fit: contain;
     }
 
-    /* Fallback Icon */
     .logo-placeholder-icon {
       font-size: 2.2rem;
       color: #ff007f;
     }
 
-    /* STOREFRONT-STYLE OUTLINED BRAND TEXT */
     .brand-title-red {
       font-family: 'Fredoka', cursive, sans-serif;
       font-size: 2.2rem;
       font-weight: 800;
-      color: #ff0015; /* Red */
+      color: #ff0015;
       text-transform: uppercase;
       line-height: 0.9;
       letter-spacing: 0.5px;
-      /* Black outline effect */
       text-shadow: 
         -2px -2px 0 #000,  
          2px -2px 0 #000,
@@ -128,11 +125,10 @@
       font-family: 'Fredoka', cursive, sans-serif;
       font-size: 2.2rem;
       font-weight: 800;
-      color: #ffe600; /* Yellow */
+      color: #ffe600;
       text-transform: uppercase;
       line-height: 0.95;
       margin-bottom: 0.35rem;
-      /* Black outline effect */
       text-shadow: 
         -2px -2px 0 #000,  
          2px -2px 0 #000,
@@ -145,10 +141,9 @@
       font-family: 'Fredoka', cursive, sans-serif;
       font-size: 0.85rem;
       font-weight: 700;
-      color: #ffffff; /* White */
+      color: #ffffff;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      /* Black outline effect */
       text-shadow: 
         -1.5px -1.5px 0 #000,  
          1.5px -1.5px 0 #000,
@@ -292,7 +287,6 @@
       z-index: 100;
     }
 
-    /* Clickable User Trigger */
     .user-trigger {
       display: flex;
       align-items: center;
@@ -335,7 +329,6 @@
       font-weight: 800;
     }
 
-    /* USER PROFILE POPUP BOX */
     .user-popup-box {
       position: absolute;
       top: 3.5rem;
@@ -406,7 +399,7 @@
       display: block;
     }
 
-    /* --- DASHBOARD VIEW STYLES & HOVER EFFECTS --- */
+    /* --- STATS GRID --- */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -422,9 +415,7 @@
       box-shadow: var(--card-shadow);
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.3s ease,
-                  border-color 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
     .stat-card:hover {
@@ -451,12 +442,6 @@
       background-color: var(--pastel-yellow);
       padding: 0.6rem;
       border-radius: 12px;
-      transition: transform 0.4s ease, background-color 0.3s ease;
-    }
-
-    .stat-card:hover .stat-icon {
-      transform: scale(1.15) rotate(5deg);
-      background-color: var(--pastel-pink);
     }
 
     .stat-card .value {
@@ -465,7 +450,7 @@
       color: var(--text-main);
     }
 
-    /* --- MENU VIEW STYLES & CONTROLS --- */
+    /* --- MENU VIEW & CONTROLS --- */
     .inventory-header {
       display: flex;
       justify-content: space-between;
@@ -519,7 +504,7 @@
       gap: 1.5rem;
     }
 
-    /* --- PRODUCT CARD HOVER EFFECTS --- */
+    /* --- PRODUCT CARD STYLES --- */
     .product-card {
       background: var(--bg-card);
       border: 2px solid var(--border);
@@ -531,9 +516,7 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow 0.3s ease,
-                  border-color 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
     .product-card:hover {
@@ -588,13 +571,6 @@
       color: #2c3e50;
     }
 
-    .status-msg {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 1rem;
-      margin-top: 3rem;
-    }
-
     /* --- SETTINGS VIEW STYLES --- */
     .settings-card {
       background: var(--bg-card);
@@ -610,10 +586,6 @@
       align-items: center;
       padding: 1rem 0;
       border-bottom: 1px solid var(--bg-main);
-    }
-
-    .setting-item:last-child {
-      border-bottom: none;
     }
 
     .switch {
@@ -668,26 +640,17 @@
   <!-- LEFT SIDEBAR -->
   <aside>
     <div>
-      <!-- LOGO HOLDER & BRANDING -->
       <div class="brand-container">
-        <!-- Logo Holder Container -->
         <div class="logo-holder">
           <img src="logo.png" alt="Sugar Baby Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
           <i class="fa-solid fa-mug-hot logo-placeholder-icon" style="display: none;"></i>
         </div>
-
-        <!-- 1. SUGAR (Red with Black Outline) -->
         <div class="brand-title-red">SUGAR</div>
-
-        <!-- 2. baby (Yellow with Black Outline) -->
         <div class="brand-title-yellow">BABY</div>
-
-        <!-- 3. MILK TEA & COFFEE (White with Black Outline) -->
         <div class="brand-subtitle-white">MILK TEA & COFFEE</div>
       </div>
 
       <div class="nav-section">
-        <div class="nav-section-title"></div>
         <ul class="nav-links">
           <li>
             <a class="nav-item active" data-tab="dashboard">
@@ -729,7 +692,6 @@
       </div>
     </div>
 
-    <!-- LOGOUT BUTTON -->
     <button class="logout-btn" onclick="alert('Logging out...')">
       <i class="fa-solid fa-right-from-bracket"></i>
       <span>Log Out</span>
@@ -738,7 +700,6 @@
 
   <!-- MAIN WRAPPER -->
   <div class="main-wrapper">
-    <!-- HEADER BAR -->
     <header>
       <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted)"></i>
@@ -755,7 +716,6 @@
           </div>
         </div>
 
-        <!-- CLICKABLE USER TRIGGER -->
         <div class="user-trigger" id="userTrigger">
           <div class="user-info">
             <div class="user-name">John Laurenz Sunga</div>
@@ -764,7 +724,6 @@
           <div class="avatar">SB</div>
         </div>
 
-        <!-- CLICKABLE USER POPUP BOX -->
         <div class="user-popup-box hidden" id="userPopup">
           <div class="popup-user-header">
             <h4 id="popupUserName">John Laurenz Sunga</h4>
@@ -828,7 +787,7 @@
               <h3>Active Flavors</h3>
               <i class="fa-solid fa-mug-hot stat-icon"></i>
             </div>
-            <div class="value">24</div>
+            <div class="value" id="totalFlavorsCount">24</div>
           </div>
         </div>
       </section>
@@ -842,7 +801,6 @@
           </div>
           
           <div class="action-controls">
-            <!-- SORT DROPDOWN -->
             <select id="sortSelect" class="sort-select">
               <option value="" disabled selected>Sort By</option>
               <option value="price-low">▼ Price Low to High</option>
@@ -851,14 +809,17 @@
               <option value="name-za">▼ Name Z-A</option>
             </select>
 
-            <button id="toggleBtn" class="btn-toggle">
-              <i class="fa-solid fa-eye"></i> <span>Show Products</span>
+            <button id="addNewItemBtn" class="btn-toggle" style="background-color: var(--pastel-yellow); border: 2px solid var(--pastel-yellow-dark);">
+              <i class="fa-solid fa-plus"></i> <span>Add New Item</span>
             </button>
           </div>
         </div>
 
-        <div id="statusMsg" class="status-msg">Click "Show Products" to view our menu.</div>
-        <div id="productGrid" class="products-grid hidden"></div>
+        <!-- CATEGORY TABS CONTAINER -->
+        <div id="categoryTabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;"></div>
+
+        <!-- PRODUCTS GRID CONTAINER -->
+        <div id="productsGrid" class="products-grid"></div>
       </section>
 
       <!-- 3. ORDERS VIEW -->
@@ -894,93 +855,47 @@
       <section id="about" class="tab-content">
         <h2 style="margin-bottom: 1rem; color: var(--text-main);">About Sugar Baby Shop</h2>
         <p style="line-height: 1.6; color: var(--text-muted); max-width: 600px;">
-          Welcome to <strong>Sugar Baby Milk Tea & Coffee</strong>! We serve affordable, delicious, and high-quality drinks with various sizes ranging from Regular (25 PHP) to Jumbo (60 PHP).
+          Welcome to <strong>Sugar Baby Milk Tea & Coffee</strong>! We serve affordable, delicious, and high-quality drinks with various sizes ranging from Regular to Jumbo.
         </p>
       </section>
 
     </div>
   </div>
 
-  <script src="app.js"></script>
-  <script>
-    // Tab Switching
-    const navItems = document.querySelectorAll('.nav-item');
-    const tabContents = document.querySelectorAll('.tab-content');
+  <!-- ADD / EDIT MODAL OVERLAY -->
+  <div id="editModalOverlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 400px; border: 2px solid var(--border); box-shadow: var(--card-shadow);">
+      <h3 style="margin-bottom: 1rem; color: var(--text-main);">Product Details</h3>
+      <form id="editForm">
+        <input type="hidden" id="editItemIndex">
+        
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Item Name</label>
+          <input type="text" id="editItemName" required style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+        </div>
 
-    function switchTab(targetTab) {
-      navItems.forEach(nav => {
-        nav.classList.toggle('active', nav.getAttribute('data-tab') === targetTab);
-      });
-      tabContents.forEach(tab => {
-        tab.classList.toggle('active', tab.id === targetTab);
-      });
-      document.getElementById('userPopup').classList.add('hidden');
-    }
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Category</label>
+          <input type="text" id="editItemCategory" required style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+        </div>
 
-    navItems.forEach(item => {
-      item.addEventListener('click', () => switchTab(item.getAttribute('data-tab')));
-    });
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Availability</label>
+          <select id="editItemAvailability" style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+            <option value="true">Available</option>
+            <option value="false">Unavailable</option>
+          </select>
+        </div>
 
-    // Dark Mode Toggle Sync
-    const darkModeToggles = document.querySelectorAll('.darkModeToggle');
-    darkModeToggles.forEach(toggle => {
-      toggle.addEventListener('change', (e) => {
-        const isChecked = e.target.checked;
-        document.body.classList.toggle('dark-mode', isChecked);
-        darkModeToggles.forEach(t => t.checked = isChecked);
-      });
-    });
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" id="closeModalBtn" style="padding: 0.6rem 1.2rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-main); cursor: pointer;">Cancel</button>
+          <button type="submit" style="padding: 0.6rem 1.2rem; border-radius: 8px; border: none; background: var(--pastel-pink-dark); color: white; font-weight: 700; cursor: pointer;">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    // Notification Dropdown
-    const notifBtn = document.getElementById('notifBtn');
-    const notifDropdown = document.getElementById('notifDropdown');
-
-    notifBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      notifDropdown.classList.toggle('hidden');
-      document.getElementById('userPopup').classList.add('hidden');
-    });
-
-    // User Profile Clickable Popup Box Toggle
-    const userTrigger = document.getElementById('userTrigger');
-    const userPopup = document.getElementById('userPopup');
-
-    userTrigger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      userPopup.classList.toggle('hidden');
-      notifDropdown.classList.add('hidden');
-    });
-
-    // Close Dropdowns on Click Outside
-    document.addEventListener('click', (e) => {
-      if (!notifDropdown.classList.contains('hidden')) {
-        notifDropdown.classList.add('hidden');
-      }
-      if (!userPopup.contains(e.target) && !userTrigger.contains(e.target)) {
-        userPopup.classList.add('hidden');
-      }
-    });
-
-    // Dynamic Search Filter
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase().trim();
-      
-      if (searchTerm.length > 0) {
-        switchTab('menu');
-        const toggleBtn = document.getElementById('toggleBtn');
-        const productGrid = document.getElementById('productGrid');
-        if (productGrid.classList.contains('hidden')) {
-          toggleBtn.click();
-        }
-      }
-
-      const cards = document.querySelectorAll('.product-card');
-      cards.forEach(card => {
-        const textContent = card.textContent.toLowerCase();
-        card.classList.toggle('hidden', !textContent.includes(searchTerm));
-      });
-    });
-<script src="script.js"></script>
+  <!-- Links to the external script file -->
+  <script src="script.js"></script>
 </body>
 </html>
