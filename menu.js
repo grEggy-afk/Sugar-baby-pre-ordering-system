@@ -1,7 +1,5 @@
 let menuItems = [];
 let addOnsList = [];
-let cart = [];
-let orderHistory = [];
 let notifications = [];
 let activeCategory = "All";
 let currentSearch = "";
@@ -34,15 +32,11 @@ const notifBtn = document.getElementById("notifBtn");
 const notifDropdown = document.getElementById("notifDropdown");
 const darkModeToggles = document.querySelectorAll(".darkModeToggle");
 
-const receiptUploadForm = document.getElementById("receiptUploadForm");
-const receiptFile = document.getElementById("receiptFile");
-const receiptPreviewContainer = document.getElementById("receiptPreviewContainer");
-const receiptPreviewImg = document.getElementById("receiptPreviewImg");
-
 document.addEventListener("DOMContentLoaded", () => {
   initNavigation();
   initEventListeners();
   fetchProducts();
+  renderNotifications();
 });
 
 function initNavigation() {
@@ -337,6 +331,11 @@ function openOrderModal(productId) {
     }
   }
 
+  const modalSubmitBtn = orderForm.querySelector('button[type="submit"]');
+  if (modalSubmitBtn) {
+    modalSubmitBtn.innerHTML = `<i class="fa-solid fa-cart-plus"></i> Add to Cart`;
+  }
+
   updateModalTotalPrice();
   if (editModalOverlay) editModalOverlay.classList.remove("hidden");
 }
@@ -345,176 +344,70 @@ function closeOrderModal() {
   if (editModalOverlay) editModalOverlay.classList.add("hidden");
 }
 
-/* --- CART & BADGE MANAGEMENT --- */
-function renderCart() {
-  const cartItemsList = document.getElementById("cartItemsList");
-  const cartSummaryFooter = document.getElementById("cartSummaryFooter");
-  const cartTotalPrice = document.getElementById("cartTotalPrice");
-  let checkoutBtn = document.getElementById("checkoutBtn") || document.getElementById("confirmOrderBtn");
-
-  if (!cartItemsList) return;
-
-  if (cart.length === 0) {
-    cartItemsList.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 1.5rem 0;">Your cart is empty. Pick items from the menu!</p>`;
-    if (cartSummaryFooter) cartSummaryFooter.classList.add("hidden");
-    if (checkoutBtn) {
-      checkoutBtn.style.opacity = "0.5";
-      checkoutBtn.disabled = true;
-    }
-    return;
+function showQRPaymentModal(refNo, totalAmount, singleItem) {
+  let qrModal = document.getElementById("qrPaymentModalOverlay");
+  
+  if (!qrModal) {
+    qrModal = document.createElement("div");
+    qrModal.id = "qrPaymentModalOverlay";
+    qrModal.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6); display: flex; align-items: center;
+      justify-content: center; z-index: 1000;
+    `;
+    document.body.appendChild(qrModal);
   }
 
-  let grandTotal = 0;
-  cartItemsList.innerHTML = cart.map((item, index) => {
-    grandTotal += item.totalPrice;
-    const addOnsStr = item.addOns.map(a => `${a.name} (+₱${a.price})`).join(', ');
-    
-    return `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--border);">
-        <div>
-          <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main);">${item.name} (${item.size})</h4>
-          <p style="font-size: 0.75rem; color: var(--text-muted);">Qty: ${item.quantity} ${addOnsStr ? '| Add-ons: ' + addOnsStr : ''}</p>
-        </div>
-        <div style="display: flex; align-items: center; gap: 1rem;">
-          <span style="font-weight: 800; color: var(--text-main);">₱${item.totalPrice.toFixed(2)}</span>
-          <button type="button" onclick="removeFromCart(${index})" title="Delete Item" style="background: transparent; border: none; color: #e53e3e; cursor: pointer; font-size: 1rem;"><i class="fa-solid fa-trash"></i></button>
+  qrModal.innerHTML = `
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+      <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">Scan QR to Pay</h3>
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Reference: <strong>${refNo}</strong></p>
+      
+      <div style="background: white; padding: 1.5rem; display: inline-block; border-radius: 12px; border: 2px dashed var(--border); margin-bottom: 1rem;">
+        <div style="width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #f7fafc; color: #2d3748; font-weight: bold; font-size: 0.9rem; border-radius: 8px;">
+          <i class="fa-solid fa-qrcode" style="font-size: 3rem; margin-bottom: 8px; color: var(--pastel-pink-dark);"></i>
+          <span>QR PLACEHOLDER</span>
         </div>
       </div>
-    `;
-  }).join('');
 
-  if (cartTotalPrice) cartTotalPrice.textContent = `₱${grandTotal.toFixed(2)}`;
-  
-  // Inject Confirm Order button inside footer if missing
-  if (cartSummaryFooter) {
-    cartSummaryFooter.classList.remove("hidden");
-    if (!document.getElementById("confirmOrderBtn")) {
-      const confirmBtn = document.createElement("button");
-      confirmBtn.id = "confirmOrderBtn";
-      confirmBtn.type = "button";
-      confirmBtn.className = "btn-toggle";
-      confirmBtn.style.cssText = "width: 100%; margin-top: 10px; background: var(--pastel-pink-dark); color: white; justify-content: center; cursor: pointer; font-weight: 700;";
-      confirmBtn.innerHTML = `<i class="fa-solid fa-check-circle"></i> Confirm Order`;
-      confirmBtn.onclick = handleConfirmOrder;
-      cartSummaryFooter.appendChild(confirmBtn);
-    }
-  }
+      <p style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Total Due: ₱${totalAmount.toFixed(2)}</p>
+      
+      <div style="display: flex; gap: 10px;">
+        <button type="button" id="closeQrModalBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border);">Cancel</button>
+        <button type="button" id="simulatePaymentBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white;">I've Paid</button>
+      </div>
+    </div>
+  `;
 
-  if (checkoutBtn) {
-    checkoutBtn.style.opacity = "1";
-    checkoutBtn.disabled = false;
-  }
-}
+  qrModal.classList.remove("hidden");
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
-  updateOrderBadges();
-}
-
-function handleConfirmOrder() {
-  if (cart.length === 0) {
-    alert("Your cart is empty!");
-    return;
-  }
-
-  // Check if checkout or upload tab exists, else complete directly
-  const uploadTab = document.getElementById("checkout") || document.getElementById("upload");
-  if (uploadTab && typeof switchTab === "function") {
-    switchTab(uploadTab.id);
-    return;
-  }
-
-  // Direct Confirmation fallback
-  const refNo = `#SB-${Math.floor(1000 + Math.random() * 9000)}`;
-  const totalAmount = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-
-  const newOrder = {
-    refNo: refNo,
-    items: [...cart],
-    itemsCount: cart.length,
-    totalAmount: totalAmount,
-    receiptImage: null,
-    date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' ' + new Date().toLocaleDateString()
+  document.getElementById("closeQrModalBtn").onclick = () => {
+    qrModal.classList.add("hidden");
   };
 
-  orderHistory.unshift(newOrder);
-  notifications.unshift({
-    title: `Order Confirmed (${refNo})`,
-    message: `Your order worth ₱${totalAmount.toFixed(2)} has been placed successfully.`
-  });
+  document.getElementById("simulatePaymentBtn").onclick = () => {
+    notifications.unshift({
+      title: `Payment Confirmed (${refNo})`,
+      message: `Your payment of ₱${totalAmount.toFixed(2)} for ${singleItem.name} (${singleItem.size}) was successfully processed.`
+    });
+    renderNotifications();
 
-  cart = [];
-  renderCart();
-  updateOrderBadges();
-  renderHistory();
-  renderNotifications();
-
-  alert(`Order confirmed successfully! Reference: ${refNo}`);
-  switchTab("history");
+    qrModal.classList.add("hidden");
+    alert("Payment successful! Order placed.");
+  };
 }
 
-function updateOrderBadges() {
-  const ordersCountBadge = document.getElementById("ordersCountBadge");
-  const statPendingOrders = document.getElementById("statPendingOrders");
+function renderNotifications() {
+  const notifListContainer = document.getElementById("notifListContainer");
   const bellBadge = document.getElementById("bellBadge");
 
-  if (ordersCountBadge) {
-    if (cart.length > 0) {
-      ordersCountBadge.textContent = cart.length;
-      ordersCountBadge.classList.remove("hidden");
-    } else {
-      ordersCountBadge.classList.add("hidden");
-    }
-  }
-
-  if (statPendingOrders) {
-    statPendingOrders.textContent = cart.length;
-  }
-
-  if (bellBadge && notifications.length > 0) {
+  if (notifications.length > 0 && bellBadge) {
     bellBadge.textContent = notifications.length;
     bellBadge.classList.remove("hidden");
   } else if (bellBadge) {
     bellBadge.classList.add("hidden");
   }
-}
 
-function renderHistory() {
-  const historyListContainer = document.getElementById("historyListContainer");
-  if (!historyListContainer) return;
-
-  if (orderHistory.length === 0) {
-    historyListContainer.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 1.5rem 0;">No recent transactions completed yet.</p>`;
-    return;
-  }
-
-  historyListContainer.innerHTML = orderHistory.map(order => {
-    const itemsListStr = order.items.map(i => `${i.quantity}x ${i.name} (${i.size})`).join(', ');
-    return `
-      <div class="settings-card" style="max-width: 100%; margin-bottom: 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-          <strong style="color: var(--text-main);">Ref: ${order.refNo}</strong>
-          <span style="font-size: 0.8rem; color: var(--text-muted);">${order.date}</span>
-        </div>
-        <p style="font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.25rem;"><strong>Items:</strong> ${itemsListStr}</p>
-        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;"><strong>Total:</strong> ₱${order.totalAmount.toFixed(2)}</p>
-        
-        ${order.receiptImage ? `
-          <div style="margin-bottom: 0.75rem;">
-            <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 4px;">Uploaded Receipt:</span>
-            <img src="${order.receiptImage}" alt="Receipt" style="max-height: 100px; border-radius: 6px; border: 1px solid var(--border);" />
-          </div>
-        ` : ''}
-
-        <span class="badge" style="background: #48bb78; color: white; display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">Verified & Completed</span>
-      </div>
-    `;
-  }).join('');
-}
-
-function renderNotifications() {
-  const notifListContainer = document.getElementById("notifListContainer");
   if (!notifListContainer) return;
 
   if (notifications.length === 0) {
@@ -570,7 +463,7 @@ function initEventListeners() {
       const totalAddonCost = selectedAddOns.reduce((sum, item) => sum + item.price, 0);
       const finalTotalPrice = (basePrice + totalAddonCost) * qty;
 
-      const cartItem = {
+      const singleItem = {
         id: Date.now(),
         productId: product ? product.id : null,
         name: product ? product.name : 'Unknown Item',
@@ -582,73 +475,10 @@ function initEventListeners() {
         totalPrice: finalTotalPrice
       };
 
-      cart.push(cartItem);
-      renderCart();
-      updateOrderBadges();
       closeOrderModal();
-    });
-  }
-
-  // Bind Confirm/Checkout button if it exists explicitly in HTML
-  const checkoutBtn = document.getElementById("checkoutBtn");
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", handleConfirmOrder);
-  }
-
-  if (receiptFile) {
-    receiptFile.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          if (receiptPreviewImg) receiptPreviewImg.src = event.target.result;
-          if (receiptPreviewContainer) receiptPreviewContainer.classList.remove("hidden");
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-
-  if (receiptUploadForm) {
-    receiptUploadForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-      }
-
-      const refNoInput = document.getElementById("receiptRefNo");
-      const refNo = (refNoInput && refNoInput.value) ? refNoInput.value : `#SB-${Math.floor(1000 + Math.random() * 9000)}`;
-      const totalAmount = cart.reduce((sum, item) => sum + item.totalPrice, 0);
-      const receiptImgSrc = (receiptPreviewImg && receiptPreviewContainer && !receiptPreviewContainer.classList.contains("hidden")) ? receiptPreviewImg.src : null;
-
-      const newOrder = {
-        refNo: refNo,
-        items: [...cart],
-        itemsCount: cart.length,
-        totalAmount: totalAmount,
-        receiptImage: receiptImgSrc,
-        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' ' + new Date().toLocaleDateString()
-      };
-
-      orderHistory.unshift(newOrder);
-      notifications.unshift({
-        title: `Order Verified (${refNo})`,
-        message: `Your payment for ₱${totalAmount.toFixed(2)} was successfully verified.`
-      });
-
-      cart = [];
-      renderCart();
-      updateOrderBadges();
-      renderHistory();
-      renderNotifications();
-
-      receiptUploadForm.reset();
-      if (receiptPreviewContainer) receiptPreviewContainer.classList.add("hidden");
-      if (receiptPreviewImg) receiptPreviewImg.src = "";
-
-      alert("Order submitted and verified successfully!");
-      switchTab("history");
+      
+      const refNo = `#SB-${Math.floor(1000 + Math.random() * 9000)}`;
+      showQRPaymentModal(refNo, finalTotalPrice, singleItem);
     });
   }
 
