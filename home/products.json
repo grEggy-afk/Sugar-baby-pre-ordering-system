@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Classic Pearl Milk Tea",
+    "category": "Classic Series",
+    "price": 110.00
+  },
+  {
+    "name": "Okinawa Brown Sugar",
+    "category": "Specialty",
+    "price": 130.00
+  },
+  {
+    "name": "Taro Milk Tea",
+    "category": "Flavored Tea",
+    "price": 120.00
+  },
+  {
+    "name": "Matcha Cream Cheese",
+    "category": "Cheese Foam",
+    "price": 140.00
+  },
+  {
+    "name": "Wintermelon Milk Tea",
+    "category": "Classic Series",
+    "price": 115.00
+  },
+  {
+    "name": "Mango Fruit Tea",
+    "category": "Fruit Tea",
+    "price": 125.00
+  }
+]
