@@ -1,6 +1,7 @@
 let menuItems = [];
 let addOnsList = [];
 let notifications = [];
+let cart = [];
 let activeCategory = "All";
 let currentSearch = "";
 let currentSort = "";
@@ -232,11 +233,111 @@ function renderProducts() {
           ₱${item.basePrice}
         </div>
       </div>
-      <button class="btn-toggle order-btn" data-id="${item.id}" type="button" style="width: 100%; justify-content: center; margin-top: 1rem; cursor: pointer; pointer-events: auto; position: relative; z-index: 10;">
-        <i class="fa-solid fa-cart-plus"></i> Order
-      </button>
+      
+      <div style="display: flex; gap: 8px; margin-top: 1rem;">
+        <button class="btn-toggle add-to-cart-btn" data-id="${item.id}" type="button" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); cursor: pointer; pointer-events: auto; position: relative; z-index: 10;">
+          <i class="fa-solid fa-cart-plus"></i> Cart
+        </button>
+        <button class="btn-toggle order-btn" data-id="${item.id}" type="button" style="flex: 1; justify-content: center; cursor: pointer; pointer-events: auto; position: relative; z-index: 10;">
+          <i class="fa-solid fa-mug-saucer"></i> Check Out
+        </button>
+      </div>
     </div>
   `).join('');
+}
+
+function handleQuickAddToCart(productId) {
+  const product = menuItems.find(p => String(p.id) === String(productId));
+  if (!product) return;
+
+  const defaultSize = "Large";
+  const basePrice = product.prices[defaultSize] || product.basePrice;
+
+  let cartModal = document.getElementById("cartModalOverlay");
+  if (!cartModal) {
+    cartModal = document.createElement("div");
+    cartModal.id = "cartModalOverlay";
+    cartModal.style.cssText = `
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6); display: flex; align-items: center;
+      justify-content: center; z-index: 1000;
+    `;
+    document.body.appendChild(cartModal);
+  }
+
+  cartModal.innerHTML = `
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+      <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">Add to Cart</h3>
+      <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: 1.5rem;">${product.name}</p>
+      
+      <div style="display: flex; gap: 10px;">
+        <button type="button" id="cancelCartBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); cursor: pointer;">Cancel</button>
+        <button type="button" id="confirmCartBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white; cursor: pointer;">Add to Cart</button>
+      </div>
+    </div>
+  `;
+
+  cartModal.classList.remove("hidden");
+
+  document.getElementById("cancelCartBtn").onclick = () => {
+    cartModal.classList.add("hidden");
+  };
+
+  document.getElementById("confirmCartBtn").onclick = () => {
+    cart.push({
+      id: Date.now(),
+      productId: product.id,
+      name: product.name,
+      category: product.category,
+      size: defaultSize,
+      basePrice: basePrice,
+      addOns: [],
+      quantity: 1,
+      totalPrice: basePrice
+    });
+
+    notify(
+      "Added to Cart",
+      `${product.name} has been added to your cart.`
+    );
+
+    cartModal.classList.add("hidden");
+  };
+}
+
+function notify(title, message) {
+  notifications.unshift({ title, message });
+  renderNotifications();
+  showToast(title, message);
+}
+
+function showToast(title, message) {
+  let toastContainer = document.getElementById("toastContainer");
+  if (!toastContainer) {
+    toastContainer = document.createElement("div");
+    toastContainer.id = "toastContainer";
+    toastContainer.style.cssText = `
+      position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+    `;
+    document.body.appendChild(toastContainer);
+  }
+
+  const toast = document.createElement("div");
+  toast.style.cssText = `
+    background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border);
+    padding: 12px 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 0.85rem; max-width: 300px; pointer-events: auto; animation: slideIn 0.3s ease;
+  `;
+  toast.innerHTML = `<strong>${title}</strong><p style="margin: 4px 0 0; color: var(--text-muted); font-size: 0.75rem;">${message}</p>`;
+  
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transition = "opacity 0.3s ease";
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
 }
 
 function updateModalTotalPrice() {
@@ -272,6 +373,32 @@ function updateModalTotalPrice() {
   priceDisplay.textContent = `Total: ₱${grandTotal.toFixed(2)}`;
 }
 
+function generatePickupTimeOptions() {
+  let options = '';
+  let startHour = 8;
+  let startMinute = 0;
+  let endHour = 19;
+  let endMinute = 30;
+
+  let currentTotalMinutes = startHour * 60 + startMinute;
+  let endTotalMinutes = endHour * 60 + endMinute;
+
+  while (currentTotalMinutes <= endTotalMinutes) {
+    let h = Math.floor(currentTotalMinutes / 60);
+    let m = currentTotalMinutes % 60;
+    let period = h >= 12 ? 'PM' : 'AM';
+    let displayHour = h % 12;
+    displayHour = displayHour ? displayHour : 12;
+    let displayMinute = m < 10 ? '0' + m : m;
+    
+    let timeString = `${displayHour}:${displayMinute} ${period}`;
+    options += `<option value="${timeString}">${timeString}</option>`;
+
+    currentTotalMinutes += 30;
+  }
+  return options;
+}
+
 function openOrderModal(productId) {
   const product = menuItems.find(p => String(p.id) === String(productId));
   if (!product) return;
@@ -297,13 +424,24 @@ function openOrderModal(productId) {
   }
 
   if (orderForm) {
-    let addOnContainer = document.getElementById("modalAddOnsContainer");
-    if (!addOnContainer) {
-      addOnContainer = document.createElement("div");
-      addOnContainer.id = "modalAddOnsContainer";
-      addOnContainer.style.margin = "1rem 0";
+    let modalExtraContainer = document.getElementById("modalExtraContainer");
+    if (!modalExtraContainer) {
+      modalExtraContainer = document.createElement("div");
+      modalExtraContainer.id = "modalExtraContainer";
+      modalExtraContainer.style.margin = "1rem 0";
     }
 
+    modalExtraContainer.innerHTML = `
+      <div id="modalAddOnsContainer" style="margin-bottom: 1rem;"></div>
+      <div class="form-group" style="margin-top: 1rem;">
+        <label for="orderPickupTime" style="display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Pick-Up Time:</label>
+        <select id="orderPickupTime" class="form-control" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+          ${generatePickupTimeOptions()}
+        </select>
+      </div>
+    `;
+
+    const addOnContainer = modalExtraContainer.querySelector("#modalAddOnsContainer");
     if (addOnsList.length > 0) {
       addOnContainer.innerHTML = `
         <label style="display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Add-Ons:</label>
@@ -325,15 +463,15 @@ function openOrderModal(productId) {
     const quantityEl = orderQuantity ? (orderQuantity.closest('.form-group') || orderQuantity.parentElement) : null;
     
     if (quantityEl && quantityEl.parentNode) {
-      quantityEl.parentNode.insertBefore(addOnContainer, quantityEl.nextSibling);
+      quantityEl.parentNode.insertBefore(modalExtraContainer, quantityEl.nextSibling);
     } else {
-      orderForm.appendChild(addOnContainer);
+      orderForm.appendChild(modalExtraContainer);
     }
   }
 
   const modalSubmitBtn = orderForm.querySelector('button[type="submit"]');
   if (modalSubmitBtn) {
-    modalSubmitBtn.innerHTML = `<i class="fa-solid fa-cart-plus"></i> Add to Cart`;
+    modalSubmitBtn.innerHTML = `<i class="fa-solid fa-mug-saucer"></i> Check Out`;
   }
 
   updateModalTotalPrice();
@@ -370,11 +508,12 @@ function showQRPaymentModal(refNo, totalAmount, singleItem) {
         </div>
       </div>
 
+      <p style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.5rem;">Pick-Up Time: <strong>${singleItem.pickupTime}</strong></p>
       <p style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Total Due: ₱${totalAmount.toFixed(2)}</p>
       
       <div style="display: flex; gap: 10px;">
         <button type="button" id="closeQrModalBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border);">Cancel</button>
-        <button type="button" id="simulatePaymentBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white;">I've Paid</button>
+        <button type="button" id="simulatePaymentBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white;">Order Succesful</button>
       </div>
     </div>
   `;
@@ -386,14 +525,13 @@ function showQRPaymentModal(refNo, totalAmount, singleItem) {
   };
 
   document.getElementById("simulatePaymentBtn").onclick = () => {
-    notifications.unshift({
-      title: `Payment Confirmed (${refNo})`,
-      message: `Your payment of ₱${totalAmount.toFixed(2)} for ${singleItem.name} (${singleItem.size}) was successfully processed.`
-    });
-    renderNotifications();
+    notify(
+      `Order Successful (${refNo})`,
+      `Your order of ₱${totalAmount.toFixed(2)} for ${singleItem.name} (${singleItem.size}) was successfully placed. Pick-up scheduled at ${singleItem.pickupTime}.`
+    );
 
     qrModal.classList.add("hidden");
-    alert("Payment successful! Order placed.");
+    alert("Order successful!");
   };
 }
 
@@ -427,11 +565,20 @@ function initEventListeners() {
   if (productsGrid) {
     productsGrid.addEventListener("click", (e) => {
       const orderBtn = e.target.closest(".order-btn");
+      const addToCartBtn = e.target.closest(".add-to-cart-btn");
+
       if (orderBtn) {
         e.preventDefault();
         e.stopPropagation();
         const productId = orderBtn.getAttribute("data-id");
         openOrderModal(productId);
+      }
+
+      if (addToCartBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const productId = addToCartBtn.getAttribute("data-id");
+        handleQuickAddToCart(productId);
       }
     });
   }
@@ -457,6 +604,9 @@ function initEventListeners() {
       const basePrice = pricesObj[selectedSize] || 35;
       const qty = parseInt(orderQuantity ? orderQuantity.value : 1) || 1;
       
+      const pickupTimeSelect = document.getElementById("orderPickupTime");
+      const selectedPickupTime = pickupTimeSelect ? pickupTimeSelect.value : '8:00 AM';
+
       const selectedAddOns = Array.from(document.querySelectorAll('input[name="modalAddOns"]:checked'))
         .map(cb => ({ name: cb.value, price: parseFloat(cb.dataset.price) || 10 }));
 
@@ -472,6 +622,7 @@ function initEventListeners() {
         basePrice: basePrice,
         addOns: selectedAddOns,
         quantity: qty,
+        pickupTime: selectedPickupTime,
         totalPrice: finalTotalPrice
       };
 
