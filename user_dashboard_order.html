@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugar Baby Shop | Customer Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-main: #fcfbfa;
+      --bg-sidebar: #cbebff;
+      --bg-card: #ffffff;
+      --text-main: #2d3748;
+      --text-muted: #62728d;
+      --pastel-yellow: #fff2a8;
+      --pastel-yellow-dark: #f0db6e;
+      --pastel-blue: #cbebff;
+      --pastel-pink: #ffd6e7;
+      --pastel-pink-dark: #fca1c9;
+      --border: #f0e6db;
+      --sidebar-text: #2c3e50;
+      --sidebar-active-bg: #fff2a8;
+      --sidebar-active-text: #2c3e50;
+      --card-shadow: 0 4px 15px rgba(203, 235, 255, 0.4);
+    }
+
+    body.dark-mode {
+      --bg-main: #1a1e24;
+      --bg-sidebar: #13171c;
+      --bg-card: #22272e;
+      --text-main: #f0f4f8;
+      --text-muted: #9fb3c8;
+      --border: #2d3748;
+      --sidebar-text: #e2e8f0;
+      --sidebar-active-bg: #3b4a6b;
+      --sidebar-active-text: #fff2a8;
+      --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    aside {
+      width: 270px;
+      background-color: var(--bg-sidebar);
+      padding: 1.75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+      border-right: 2px solid var(--border);
+    }
+
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo-holder {
+      width: 95px;
+      height: 95px;
+      background-color: #ffffff;
+      border: 3px solid var(--pastel-pink-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-placeholder-icon {
+      font-size: 2.2rem;
+      color: #ff007f;
+    }
+
+    .brand-title-red {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ff0015;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: 0.5px;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-title-yellow {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffe600;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 0.35rem;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-subtitle-white {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 
+        -1.5px -1.5px 0 #000,  
+         1.5px -1.5px 0 #000,
+        -1.5px  1.5px 0 #000,
+         1.5px  1.5px 0 #000;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      padding-left: 0.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--sidebar-active-text);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .logout-btn {
+      background-color: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      margin-top: auto;
+    }
+
+    .logout-btn:hover {
+      background-color: var(--pastel-pink-dark);
+      color: #ffffff;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-main);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      width: 320px;
+      border: 2px solid var(--pastel-yellow-dark);
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      margin-left: 0.5rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .cart-btn-wrapper {
+      position: relative;
+    }
+
+    .header-icon-btn {
+      background: var(--pastel-pink);
+      border: none;
+      color: var(--text-main);
+      font-size: 1rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: #ff0015;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 800;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .user-trigger:hover {
+      background-color: var(--bg-main);
+    }
+
+    .user-info {
+      text-align: right;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-main);
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--pastel-yellow);
+      color: #2c3e50;
+      border: 2px solid var(--pastel-yellow-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .user-popup-box {
+      position: absolute;
+      top: 3.5rem;
+      right: 0;
+      width: 260px;
+      background: var(--bg-card);
+      border: 2px solid var(--pastel-yellow-dark);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      padding: 1.25rem;
+      z-index: 200;
+    }
+
+    .user-popup-box.hidden { display: none; }
+
+    .popup-user-header {
+      border-bottom: 2px solid var(--bg-main);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .popup-user-header h4 {
+      font-size: 1rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .popup-user-header p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .popup-menu {
+      list-style: none;
+    }
+
+    .popup-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .popup-menu-item:hover {
+      color: var(--pastel-pink-dark);
+    }
+
+    .popup-logout {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--bg-main);
+      color: #e53e3e;
+      font-weight: 700;
+    }
+
+    .content-container {
+      padding: 2rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, var(--pastel-pink) 0%, var(--pastel-yellow) 100%);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border: 2px solid var(--pastel-pink-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--card-shadow);
+    }
+
+    .hero-text h1 {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text p {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .hero-btn {
+      background-color: #2c3e50;
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .hero-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .inventory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .action-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sort-select {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border: 2px solid var(--pastel-yellow-dark);
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--pastel-yellow-dark);
+      box-shadow: 0 12px 20px rgba(255, 242, 168, 0.5);
+    }
+
+    .product-image-container {
+      width: 100%;
+      height: 120px;
+      background-color: var(--pastel-blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .product-image-container i {
+      font-size: 2.8rem;
+      color: var(--text-main);
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image-container i {
+      transform: scale(1.2) rotate(-5deg);
+    }
+
+    .badge {
+      align-self: flex-start;
+      background-color: var(--pastel-yellow);
+      color: #2c3e50;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #2c3e50;
+    }
+
+    .btn-add-cart {
+      background-color: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.5rem 0.9rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add-cart:hover {
+      background-color: var(--pastel-pink-dark);
+      color: white;
+    }
+
+    .order-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      transition: all 0.25s ease;
+    }
+
+    /* ORDER CARD HOVER EFFECT */
+    .order-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--pastel-yellow-dark);
+      box-shadow: 0 8px 18px rgba(255, 242, 168, 0.45);
+    }
+
+    .order-status {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .status-pending     { background-color: #e9ecef; color: #495057; }
+    .status-preparing    { background-color: #fff3cd; color: #856404; }
+    .status-ready-pickup { background-color: #cce5ff; color: #004085; }
+    .status-completed    { background-color: #d4edda; color: #155724; }
+    .status-cancelled    { background-color: #f8d7da; color: #721c24; }
+
+    .btn-cancel-order {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+    .btn-cancel-order:hover {
+      background-color: #f5c6cb;
+      color: #491217;
+    }
+
+    .btn-view-order {
+      background-color: var(--pastel-blue);
+      color: #2c3e50;
+      border: none;
+      padding: 0.35rem 0.75rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      font-size: 0.75rem;
+      transition: all 0.2s ease;
+    }
+    .btn-view-order:hover {
+      background-color: #a8dfff;
+      color: #1a252f;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ORDER DETAILS MODAL */
+    .order-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .order-modal-overlay.hidden { display: none; }
+    .order-modal {
+      background: var(--bg-card);
+      border: 3px solid var(--pastel-yellow-dark);
+      border-radius: 16px;
+      padding: 1.5rem;
+      max-width: 420px;
+      width: 90%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    .order-modal h3 {
+      font-size: 1.15rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .order-modal p {
+      margin: 0.4rem 0;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .order-modal p strong { color: var(--text-main); }
+    .order-modal .close-btn {
+      margin-top: 1rem;
+      width: 100%;
+      background: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.6rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .order-modal .close-btn:hover { background: var(--pastel-pink-dark); color: white; }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #e2e8f0;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--pastel-pink-dark);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    .settings-container {
+      max-width: 600px;
+    }
+
+    .settings-group {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--card-shadow);
+    }
+
+    .settings-group h3 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--bg-main);
+      padding-bottom: 0.5rem;
+    }
+
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--bg-main);
+    }
+    
+    .settings-row:last-child {
+      border-bottom: none;
+    }
+
+    .settings-label {
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+    
+    .settings-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .settings-input {
+      padding: 0.5rem;
+      border: 2px solid var(--pastel-yellow-dark);
+      border-radius: 8px;
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-family: inherit;
+    }
+    
+    .settings-btn {
+      background-color: var(--pastel-blue);
+      color: var(--text-main);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .settings-btn:hover {
+      background-color: #a8dfff;
+    }
+  </style>
+</head>
+<body>
+
+  <aside>
+    <div>
+      <div class="brand-container">
+        <div class="logo-holder">
+          <img src="logo.png" alt="Sugar Baby Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <i class="fa-solid fa-mug-hot logo-placeholder-icon" style="display: none;"></i>
+        </div>
+
+        <div class="brand-title-red">SUGAR</div>
+        <div class="brand-title-yellow">BABY</div>
+        <div class="brand-subtitle-white">MILK TEA & COFFEE</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Menu & Ordering</div>
+        <ul class="nav-links">
+          <li><a class="nav-item active" data-tab="home"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a class="nav-item" data-tab="menu"><i class="fa-solid fa-glass-water"></i> Menu</a></li>
+          <li><a class="nav-item" data-tab="my-orders"><i class="fa-solid fa-cart-shopping"></i> Cart</a></li>
+          <li><a class="nav-item" data-tab="active-orders"><i class="fa-solid fa-receipt"></i> Orders</a></li>
+          <li><a class="nav-item" data-tab="history"><i class="fa-solid fa-clock-rotate-left"></i> History</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">Support</div>
+        <ul class="nav-links">
+          <li><a class="nav-item" data-tab="settings"><i class="fa-solid fa-gear"></i> Settings</a></li>
+          <li><a class="nav-item" data-tab="about"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="alert('Logging out...')">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Log Out</span>
+    </button>
+  </aside>
+
+  <div class="main-wrapper">
+    <header>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted)"></i>
+        <input type="text" id="searchInput" placeholder="Search milk tea & coffee...">
+      </div>
+
+      <div class="user-profile">
+        <div class="cart-btn-wrapper">
+          <button class="header-icon-btn" onclick="switchTab('my-orders')">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="cart-badge">1</span>
+          </button>
+        </div>
+
+        <div class="user-trigger" id="userTrigger">
+          <div class="user-info">
+            <div class="user-name">Maria Santos</div>
+            <div class="user-role">Valued Customer</div>
+          </div>
+          <div class="avatar">MS</div>
+        </div>
+
+        <div class="user-popup-box hidden" id="userPopup">
+          <div class="popup-user-header">
+            <h4>Maria Santos</h4>
+            <p>mariasantos@gmail.com</p>
+          </div>
+          <ul class="popup-menu">
+            <li class="popup-menu-item">
+              <span><i class="fa-solid fa-moon"></i> Dark Mode</span>
+              <label class="switch">
+                <input type="checkbox" class="darkModeToggle">
+                <span class="slider"></span>
+              </label>
+            </li>
+            <li class="popup-menu-item popup-logout" onclick="alert('Logging out...')">
+              <span><i class="fa-solid fa-right-from-bracket"></i> Log Out</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-container">
+
+      <section id="home" class="tab-content active">
+        <div class="hero-banner">
+          <div class="hero-text">
+            <h1>Craving Fresh Milk Tea?</h1>
+            <p>Order your favorite drinks with customizable sweetness & boba pearls!</p>
+          </div>
+          <button class="hero-btn" onclick="switchTab('menu')">Order Now</button>
+        </div>
+
+        <h3 style="margin-bottom: 1rem; color: var(--text-main);">Popular Drinks</h3>
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image-container"><i class="fa-solid fa-glass-water"></i></div>
+            <span class="badge">Bestseller</span>
+            <div class="product-title">Classic Boba Milk Tea</div>
+            <div class="product-desc">Rich brown sugar pearls with house milk tea.</div>
+            <div class="product-footer">
+              <div class="product-price">₱45.00</div>
+              <button class="btn-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image-container"><i class="fa-solid fa-mug-hot"></i></div>
+            <span class="badge">Hot / Iced</span>
+            <div class="product-title">Caramel Macchiato</div>
+            <div class="product-desc">Espresso infused with sweet caramel syrup.</div>
+            <div class="product-footer">
+              <div class="product-price">₱55.00</div>
+              <button class="btn-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="menu" class="tab-content">
+        <div class="inventory-header">
+          <div>
+            <h2 style="color: var(--text-main);">Menu</h2>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Select drinks to add to your order</p>
+          </div>
+          
+          <div class="action-controls">
+            <select id="sortSelect" class="sort-select">
+              <option value="" disabled selected>Sort By</option>
+              <option value="price-low">▼ Price Low to High</option>
+              <option value="price-high">▼ Price High to Low</option>
+              <option value="name-az">▼ Name A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          <div class="product-card">
+            <div class="product-image-container"><i class="fa-solid fa-glass-water"></i></div>
+            <span class="badge">Milk Tea</span>
+            <div class="product-title">Classic Boba Milk Tea</div>
+            <div class="product-desc">Rich brown sugar pearls with house milk tea.</div>
+            <div class="product-footer">
+              <div class="product-price">₱45.00</div>
+              <button class="btn-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image-container"><i class="fa-solid fa-mug-hot"></i></div>
+            <span class="badge">Coffee</span>
+            <div class="product-title">Caramel Macchiato</div>
+            <div class="product-desc">Espresso infused with sweet caramel syrup.</div>
+            <div class="product-footer">
+              <div class="product-price">₱55.00</div>
+              <button class="btn-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-image-container"><i class="fa-solid fa-glass-water"></i></div>
+            <span class="badge">Special</span>
+            <div class="product-title">Taro Delight</div>
+            <div class="product-desc">Creamy taro flavor topped with cheese foam.</div>
+            <div class="product-footer">
+              <div class="product-price">₱50.00</div>
+              <button class="btn-add-cart"><i class="fa-solid fa-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="my-orders" class="tab-content">
+        <h2 style="color: var(--text-main); margin-bottom: 0.5rem;">My Cart</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Items added to your cart ready for checkout</p>
+        
+        <div class="order-card">
+          <div>
+            <h4 style="color: var(--text-main);">Order Item #1</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">1x Classic Boba Milk Tea (Medium, 50% Sugar)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱45.00</p>
+          </div>
+          <button class="btn-add-cart" onclick="switchTab('active-orders')">Checkout</button>
+        </div>
+      </section>
+
+      <section id="active-orders" class="tab-content">
+        <h2 style="color: var(--text-main); margin-bottom: 0.5rem;">My Orders</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Track real-time status of your active orders</p>
+
+        <!-- NEW TEST PENDING ORDER -->
+        <div class="order-card" data-status="pending">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-1048</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">1x Wintermelon Milk Tea (Medium, 70% Sugar, Extra Pearl)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱55.00 • Just Placed</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-pending">Pending</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-1048', '1x Wintermelon Milk Tea — Medium, 70% Sugar, Extra Pearl', '₱55.00', 'Pending', 'Awaiting shop confirmation')">
+              View Order
+            </button>
+            <button class="btn-cancel-order cancel-btn">Cancel Order</button>
+          </div>
+        </div>
+
+        <div class="order-card" data-status="pending">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-1042</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">1x Classic Boba Milk Tea (Medium, 50% Sugar)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱45.00 • Placed Just Now</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-pending">Pending</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-1042', '1x Classic Boba Milk Tea — Medium, 50% Sugar', '₱45.00', 'Pending', 'Awaiting shop confirmation')">
+              View Order
+            </button>
+            <button class="btn-cancel-order cancel-btn">Cancel Order</button>
+          </div>
+        </div>
+
+        <div class="order-card" data-status="preparing">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-1039</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">2x Caramel Macchiato (Large)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱110.00 • 15 mins ago</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-preparing">Preparing</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-1039', '2x Caramel Macchiato — Large', '₱110.00', 'Preparing', 'Drinks are being made now')">
+              View Order
+            </button>
+            <button class="btn-cancel-order cancel-btn hidden">Cancel Order</button>
+          </div>
+        </div>
+
+        <div class="order-card" data-status="ready-pickup">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-1035</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">1x Taro Delight (Medium, Extra Pearl)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱50.00 • 45 mins ago</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-ready-pickup">Ready to Pick Up</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-1035', '1x Taro Delight — Medium, Extra Pearl', '₱50.00', 'Ready to Pick Up', 'Please pick up at the counter')">
+              View Order
+            </button>
+            <button class="btn-cancel-order cancel-btn hidden">Cancel Order</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="history" class="tab-content">
+        <h2 style="color: var(--text-main); margin-bottom: 0.5rem;">History</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Your completed and past orders</p>
+
+        <div class="order-card">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-0988</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">1x Caramel Macchiato (Jumbo)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱60.00 • Feb 10, 2026</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-completed">Completed</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-0988', '1x Caramel Macchiato — Jumbo', '₱60.00', 'Completed', 'Order picked up & completed')">
+              View Order
+            </button>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <div>
+            <h4 style="color: var(--text-main);">Order #SB-0851</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">2x Taro Delight (Medium, Extra Pearl)</p>
+            <p style="font-weight: 700; color: #2c3e50; margin-top: 0.25rem;">Total: ₱100.00 • Jan 28, 2026</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:0.5rem;">
+            <span class="order-status status-completed">Completed</span>
+            <button class="btn-view-order" 
+              onclick="openOrderModal('Order #SB-0851', '2x Taro Delight — Medium, Extra Pearl', '₱100.00', 'Completed', 'Order picked up & completed')">
+              View Order
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="settings" class="tab-content">
+        <h2 style="color: var(--text-main); margin-bottom: 0.5rem;">Account Settings</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Manage your preferences and profile details.</p>
+        
+        <div class="settings-container">
+          <div class="settings-group">
+            <h3>Profile Information</h3>
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Display Name</div>
+                <div class="settings-desc">How your name appears on orders.</div>
+              </div>
+              <input type="text" class="settings-input" value="Maria Santos">
+            </div>
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Email Address</div>
+                <div class="settings-desc">Used for order receipts.</div>
+              </div>
+              <input type="email" class="settings-input" value="mariasantos@gmail.com">
+            </div>
+            <div class="settings-row" style="justify-content: flex-end; margin-top: 1rem;">
+              <button class="settings-btn">Save Changes</button>
+            </div>
+          </div>
+          
+          <div class="settings-group">
+            <h3>Preferences</h3>
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Dark Mode</div>
+                <div class="settings-desc">Toggle application appearance.</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" class="darkModeToggle">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="settings-row">
+              <div>
+                <div class="settings-label">Order Notifications</div>
+                <div class="settings-desc">Receive alerts when status changes.</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="tab-content">
+        <h2 style="margin-bottom: 1rem; color: var(--text-main);">About Sugar Baby Shop</h2>
+        <p style="line-height: 1.6; color: var(--text-muted); max-width: 600px;">
+          Welcome to <strong>Sugar Baby Milk Tea & Coffee</strong>! We serve affordable, delicious, and high-quality drinks with various sizes ranging from Regular (₱25) to Jumbo (₱60).
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ORDER DETAILS MODAL -->
+  <div class="order-modal-overlay hidden" id="orderModalOverlay">
+    <div class="order-modal">
+      <h3 id="modalOrderId">Order #SB-0000</h3>
+      <p><strong>Items:</strong> <span id="modalItems">-</span></p>
+      <p><strong>Total:</strong> <span id="modalTotal">₱0.00</span></p>
+      <p><strong>Status:</strong> <span id="modalStatus">Pending</span></p>
+      <p><strong>Notes:</strong> <span id="modalNotes">-</span></p>
+      <button class="close-btn" onclick="closeOrderModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function switchTab(targetTab) {
+      navItems.forEach(nav => {
+        nav.classList.toggle('active', nav.getAttribute('data-tab') === targetTab);
+      });
+      tabContents.forEach(tab => {
+        tab.classList.toggle('active', tab.id === targetTab);
+      });
+      document.getElementById('userPopup').classList.add('hidden');
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => switchTab(item.getAttribute('data-tab')));
+    });
+
+    const darkModeToggles = document.querySelectorAll('.darkModeToggle');
+    darkModeToggles.forEach(toggle => {
+      toggle.addEventListener('change', (e) => {
+        const isChecked = e.target.checked;
+        document.body.classList.toggle('dark-mode', isChecked);
+        darkModeToggles.forEach(t => t.checked = isChecked);
+      });
+    });
+
+    const userTrigger = document.getElementById('userTrigger');
+    const userPopup = document.getElementById('userPopup');
+    userTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userPopup.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (e) => {
+      if (!userPopup.contains(e.target) && !userTrigger.contains(e.target)) {
+        userPopup.classList.add('hidden');
+      }
+    });
+
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      if (searchTerm.length > 0) switchTab('menu');
+      const cards = document.querySelectorAll('#menu .product-card');
+      cards.forEach(card => {
+        const textContent = card.textContent.toLowerCase();
+        card.classList.toggle('hidden', !textContent.includes(searchTerm));
+      });
+    });
+
+    // ========== CANCEL ORDER LOGIC  ==========
+    document.querySelectorAll('.cancel-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const orderCard = this.closest('.order-card');
+        const status = orderCard.dataset.status;
+
+        // Block cancel if already preparing or later
+        if (status === 'preparing' || status === 'ready-pickup' || status === 'completed' || status === 'cancelled') {
+          alert('Cannot cancel — order is already being prepared or ready.');
+          return;
+        }
+
+        // Only allow cancel if Pending
+        if (confirm('Are you sure you want to cancel this order?')) {
+          const statusEl = orderCard.querySelector('.order-status');
+          statusEl.classList.remove('status-pending');
+          statusEl.classList.add('status-cancelled');
+          statusEl.textContent = 'Cancelled';
+          this.remove();
+        }
+      });
+    });
+
+     // ========== VIEW ORDER DETAILS MODAL  ==========
+    function openOrderModal(orderId, items, total, status, notes) {
+      document.getElementById('modalOrderId').textContent = orderId;
+      document.getElementById('modalItems').textContent = items;
+      document.getElementById('modalTotal').textContent = total;
+      document.getElementById('modalStatus').textContent = status;
+      document.getElementById('modalNotes').textContent = notes;
+      document.getElementById('orderModalOverlay').classList.remove('hidden');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderModalOverlay').classList.add('hidden');
+    }
+
+    // Close when clicking outside modal
+    document.getElementById('orderModalOverlay').addEventListener('click', (e) => {
+      if (e.target.id === 'orderModalOverlay') closeOrderModal();
+    });
+  </script>
+</body>
+</html>
