@@ -1,0 +1,106 @@
+<!-- customer_page/cart.php -->
+<div class="cart-page">
+    <div class="cart-heading">
+        <div>
+            <span class="eyebrow">YOUR ORDER</span>
+            <h1>Your Cart</h1>
+            <p>Review your items before checkout.</p>
+        </div>
+        <button id="clearCartBtn" class="clear-btn" type="button">
+            <i class="fa-solid fa-trash-can"></i>
+            Clear Cart
+        </button>
+    </div>
+
+    <div class="cart-layout">
+        <div id="cartItemsContainer" class="cart-card cart-items-card"></div>
+
+        <aside class="cart-card summary-card">
+            <h2>Order Summary</h2>
+            <div class="summary-row">
+                <span>Items (<strong id="summaryQuantity">0</strong>)</span>
+                <strong id="summaryItemsPrice">₱0.00</strong>
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <strong id="summarySubtotal">₱0.00</strong>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+                <span>Total</span>
+                <strong id="summaryTotal">₱0.00</strong>
+            </div>
+            <button id="checkoutBtn" class="checkout-btn" type="button">
+                <i class="fa-regular fa-credit-card"></i>
+                Proceed to Checkout
+            </button>
+            <a href="?page=menu" class="continue-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Continue Shopping
+            </a>
+        </aside>
+    </div>
+</div>
+
+<!-- EDIT MODAL (Kailangan ito ng JS) -->
+<div id="editModal" class="modal hidden">
+    <div class="modal-card">
+        <button id="closeEditBtn" class="modal-close" type="button"><i class="fa-solid fa-xmark"></i></button>
+        <span class="modal-label">MODIFY ITEM</span>
+        <h2 id="editItemName">Edit Item</h2>
+        <p class="modal-subtitle">Change the size, add-ons, or quantity of your order.</p>
+
+        <label for="editSize">Size</label>
+        <select id="editSize">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large" selected>Large</option>
+        </select>
+
+        <label>Add-ons</label>
+        <div class="addon-options">
+            <label class="addon-option"><input type="checkbox" id="editBoba"><span>Boba</span><strong>+₱15</strong></label>
+            <label class="addon-option"><input type="checkbox" id="editPearl"><span>Extra Pearl</span><strong>+₱15</strong></label>
+            <label class="addon-option"><input type="checkbox" id="editCheese"><span>Cream Cheese</span><strong>+₱20</strong></label>
+            <label class="addon-option"><input type="checkbox" id="editCaramel"><span>Extra Caramel</span><strong>+₱20</strong></label>
+            <label class="addon-option"><input type="checkbox" id="editPopping"><span>Popping Boba</span><strong>+₱20</strong></label>
+        </div>
+
+        <label>Quantity</label>
+        <div class="modal-quantity">
+            <button id="editMinus" type="button">−</button>
+            <span id="editQuantity">1</span>
+            <button id="editPlus" type="button">+</button>
+        </div>
+
+        <div class="modal-actions">
+            <button id="cancelEditBtn" class="modal-secondary" type="button">Cancel</button>
+            <button id="saveEditBtn" class="modal-primary" type="button">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL (Kailangan ito ng JS) -->
+<div id="checkoutModal" class="modal hidden">
+    <div class="modal-card">
+        <button id="closeCheckoutBtn" class="modal-close" type="button"><i class="fa-solid fa-xmark"></i></button>
+        <h2>Ready to Order?</h2>
+        <p class="modal-subtitle">Confirm your cart before continuing to payment.</p>
+        <div class="checkout-total">
+            <span>Total Due</span>
+            <strong id="modalTotal">₱0.00</strong>
+        </div>
+        <div class="qr-placeholder">
+            <i class="fa-solid fa-qrcode"></i>
+            <span>QR PAYMENT</span>
+            <small>Payment QR placeholder</small>
+        </div>
+        <div class="modal-actions">
+            <button id="cancelCheckoutBtn" class="modal-secondary" type="button">Cancel</button>
+            <button id="confirmCheckoutBtn" class="modal-primary" type="button">Order Successful</button>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST CONTAINER (Kailangan ito ng JS) -->
+<div id="toastContainer" class="toast-container"></div>

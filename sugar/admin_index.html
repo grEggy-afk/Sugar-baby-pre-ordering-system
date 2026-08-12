@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugar Baby Shop | Milk Tea & Coffee</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      /* Pastel UI Color Palette */
+      --bg-main: #fcfbfa;            /* Warm Off-White */
+      --bg-sidebar: #cbebff;         /* Pastel Light Blue */
+      --bg-card: #ffffff;            /* Pure White */
+      --text-main: #2d3748;          /* Deep Slate for high contrast */
+      --text-muted: #62728d;        /* Muted Blue-Grey */
+      --pastel-yellow: #fff2a8;     /* Soft Yellow */
+      --pastel-yellow-dark: #f0db6e;/* Darker Yellow for borders/hover */
+      --pastel-blue: #cbebff;       /* Soft Light Blue */
+      --pastel-pink: #ffd6e7;       /* Soft Pink */
+      --pastel-pink-dark: #fca1c9;  /* Pink Border Accent */
+      --border: #f0e6db;             /* Light Neutral Border */
+      --sidebar-text: #2c3e50;
+      --sidebar-active-bg: #fff2a8;
+      --sidebar-active-text: #2c3e50;
+      --card-shadow: 0 4px 15px rgba(203, 235, 255, 0.4);
+    }
+
+    /* Dark Mode Variables */
+    body.dark-mode {
+      --bg-main: #1a1e24;
+      --bg-sidebar: #13171c;
+      --bg-card: #22272e;
+      --text-main: #f0f4f8;
+      --text-muted: #9fb3c8;
+      --border: #2d3748;
+      --sidebar-text: #e2e8f0;
+      --sidebar-active-bg: #3b4a6b;
+      --sidebar-active-text: #fff2a8;
+      --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- SIDEBAR STYLES --- */
+    aside {
+      width: 270px;
+      background-color: var(--bg-sidebar);
+      padding: 1.75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+      border-right: 2px solid var(--border);
+    }
+
+    /* LOGO & BRAND SECTION */
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo-holder {
+      width: 95px;
+      height: 95px;
+      background-color: #ffffff;
+      border: 3px solid var(--pastel-pink-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-holder img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .logo-placeholder-icon {
+      font-size: 2.2rem;
+      color: #ff007f;
+    }
+
+    .brand-title-red {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ff0015;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: 0.5px;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-title-yellow {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffe600;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 0.35rem;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-subtitle-white {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 
+        -1.5px -1.5px 0 #000,  
+         1.5px -1.5px 0 #000,
+        -1.5px  1.5px 0 #000,
+         1.5px  1.5px 0 #000;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      padding-left: 0.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--sidebar-active-text);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .logout-btn {
+      background-color: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      margin-top: auto;
+    }
+
+    .logout-btn:hover {
+      background-color: var(--pastel-pink-dark);
+      color: #ffffff;
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-main);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      width: 320px;
+      border: 2px solid var(--pastel-yellow-dark);
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      margin-left: 0.5rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .notification-wrapper {
+      position: relative;
+    }
+
+    .notification-btn {
+      background: var(--pastel-pink);
+      border: none;
+      color: var(--text-main);
+      font-size: 1rem;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-dropdown {
+      position: absolute;
+      right: 0;
+      top: 2.75rem;
+      width: 250px;
+      background: var(--bg-card);
+      border: 2px solid var(--pastel-pink);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      padding: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-align: center;
+      z-index: 100;
+    }
+
+    .user-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .user-trigger:hover {
+      background-color: var(--bg-main);
+    }
+
+    .user-info {
+      text-align: right;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-main);
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--pastel-yellow);
+      color: #2c3e50;
+      border: 2px solid var(--pastel-yellow-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .user-popup-box {
+      position: absolute;
+      top: 3.5rem;
+      right: 0;
+      width: 260px;
+      background: var(--bg-card);
+      border: 2px solid var(--pastel-yellow-dark);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      padding: 1.25rem;
+      z-index: 200;
+    }
+
+    .popup-user-header {
+      border-bottom: 2px solid var(--bg-main);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .popup-user-header h4 {
+      font-size: 1rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .popup-user-header p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .popup-menu {
+      list-style: none;
+    }
+
+    .popup-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .popup-menu-item:hover {
+      color: var(--pastel-pink-dark);
+    }
+
+    .popup-logout {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--bg-main);
+      color: #e53e3e;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .content-container {
+      padding: 2rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* --- SWITCH COMPONENT --- */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #e2e8f0;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--pastel-pink-dark);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT SIDEBAR -->
+  <aside>
+    <div>
+      <!-- LOGO HOLDER & BRANDING -->
+      <div class="brand-container">
+        <div class="logo-holder">
+          <img src="logo.png" alt="Sugar Baby Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <i class="fa-solid fa-mug-hot logo-placeholder-icon" style="display: none;"></i>
+        </div>
+
+        <div class="brand-title-red">SUGAR</div>
+        <div class="brand-title-yellow">BABY</div>
+        <div class="brand-subtitle-white">MILK TEA & COFFEE</div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title"></div>
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item active" data-tab="home">
+              <i class="fa-solid fa-house"></i> Home
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="menu">
+              <i class="fa-solid fa-glass-water"></i> Menu
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="orders">
+              <i class="fa-solid fa-cart-shopping"></i> Orders
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="history">
+              <i class="fa-solid fa-clock-rotate-left"></i> History
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">System</div>
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item" data-tab="analytics">
+              <i class="fa-solid fa-chart-pie"></i> Analytics
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="settings">
+              <i class="fa-solid fa-gear"></i> Settings
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="about">
+              <i class="fa-solid fa-circle-info"></i> About Us
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- LOGOUT BUTTON -->
+    <button class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Log Out</span>
+    </button>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER BAR -->
+    <header>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted)"></i>
+        <input type="text" id="searchInput" placeholder="Search milk tea & coffee...">
+      </div>
+
+      <div class="user-profile">
+        <div class="notification-wrapper">
+          <button class="notification-btn" id="notifBtn">
+            <i class="fa-regular fa-bell"></i>
+          </button>
+          <div class="notification-dropdown hidden" id="notifDropdown">
+            No notifications to show
+          </div>
+        </div>
+
+        <!-- CLICKABLE USER TRIGGER -->
+        <div class="user-trigger" id="userTrigger">
+          <div class="user-info">
+            <div class="user-name">John Laurenz Sunga</div>
+            <div class="user-role">Store Manager</div>
+          </div>
+          <div class="avatar">SB</div>
+        </div>
+
+        <!-- CLICKABLE USER POPUP BOX -->
+        <div class="user-popup-box hidden" id="userPopup">
+          <div class="popup-user-header">
+            <h4 id="popupUserName">John Laurenz Sunga</h4>
+            <p>sungajohnlaurenzso@gmail.com</p>
+          </div>
+          <ul class="popup-menu">
+            <li class="popup-menu-item">
+              <span><i class="fa-solid fa-moon"></i> Dark Mode</span>
+              <label class="switch">
+                <input type="checkbox" class="darkModeToggle" id="darkModeCheckbox">
+                <span class="slider"></span>
+              </label>
+            </li>
+            <li class="popup-menu-item popup-logout">
+              <span><i class="fa-solid fa-right-from-bracket"></i> Log Out</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content-container">
+
+      <!-- 1. HOME VIEW -->
+      <section id="home" class="tab-content active">
+      </section>
+
+      <!-- 2. MENU VIEW -->
+      <section id="menu" class="tab-content">
+      </section>
+
+      <!-- 3. ORDERS VIEW -->
+      <section id="orders" class="tab-content">
+      </section>
+
+      <!-- 4. HISTORY VIEW -->
+      <section id="history" class="tab-content">
+      </section>
+
+      <!-- 5. ANALYTICS VIEW -->
+      <section id="analytics" class="tab-content">
+      </section>
+
+      <!-- 6. SETTINGS VIEW -->
+      <section id="settings" class="tab-content">
+      </section>
+
+      <!-- 7. ABOUT US VIEW -->
+      <section id="about" class="tab-content">
+      </section>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Tab Switching
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function switchTab(targetTab) {
+      navItems.forEach(nav => {
+        nav.classList.toggle('active', nav.getAttribute('data-tab') === targetTab);
+      });
+      tabContents.forEach(tab => {
+        tab.classList.toggle('active', tab.id === targetTab);
+      });
+    }
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => switchTab(item.getAttribute('data-tab')));
+    });
+
+    // Dark Mode Toggle
+    const darkModeToggle = document.getElementById('darkModeCheckbox');
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('change', (e) => {
+        document.body.classList.toggle('dark-mode', e.target.checked);
+      });
+    }
+
+    // Notifications Popup Toggle
+    const notifBtn = document.getElementById('notifBtn');
+    const notifDropdown = document.getElementById('notifDropdown');
+    
+    if (notifBtn && notifDropdown) {
+      notifBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        notifDropdown.classList.toggle('hidden');
+        if (userPopup) userPopup.classList.add('hidden');
+      });
+    }
+
+    // User Profile Popup Toggle
+    const userTrigger = document.getElementById('userTrigger');
+    const userPopup = document.getElementById('userPopup');
+
+    if (userTrigger && userPopup) {
+      userTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userPopup.classList.toggle('hidden');
+        if (notifDropdown) notifDropdown.classList.add('hidden');
+      });
+    }
+
+    // Close Popups When Clicking Outside
+    document.addEventListener('click', (e) => {
+      if (userPopup && !userPopup.contains(e.target) && !userTrigger.contains(e.target)) {
+        userPopup.classList.add('hidden');
+      }
+      if (notifDropdown && !notifDropdown.contains(e.target) && !notifBtn.contains(e.target)) {
+        notifDropdown.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>

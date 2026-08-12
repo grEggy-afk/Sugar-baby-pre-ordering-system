@@ -1,0 +1,59 @@
+{
+  "sizes": [
+    { "name": "Regular", "price": 25 },
+    { "name": "Large", "price": 35 },
+    { "name": "XLarge", "price": 45 },
+    { "name": "Jumbo", "price": 60 }
+  ],
+  "categories": [
+    {
+      "name": "MILK TEA",
+      "items": [
+        "Avocado",
+        "Classic Pearl",
+        "Taro"
+      ]
+    },
+    {
+      "name": "COFFEE",
+      "items": [
+        "Caramel Macchiato",
+        "Iced Americano"
+      ]
+    },
+    {
+      "name": "FRUIT TEA",
+      "items": [
+        "Mango Fruit Tea",
+        "Lychee Fruit Tea"
+      ]
+    },
+    {
+      "name": "MANGO - AVO GRAHAM",
+      "items": [
+        "Avocado Cheesecake Graham",
+        "Avocado Choco Bravo",
+        "Mango Graham Shake"
+      ]
+    },
+    {
+      "name": "CHEESECAKE FRAPPE",
+      "items": [
+        "Blueberry Cheesecake",
+        "Strawberry Cheesecake"
+      ]
+    },
+    {
+      "name": "HOT DRINKS",
+      "items": [
+        "Hot Americano",
+        "Hot Latte"
+      ]
+    }
+  ],
+  "add_ons": [
+    { "name": "Pearl", "price": 10 },
+    { "name": "Pudding", "price": 15 },
+    { "name": "Cheese Foam", "price": 20 }
+  ]
+}

@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sugar Baby Shop | Milk Tea & Coffee</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      /* Pastel UI Color Palette */
+      --bg-main: #fcfbfa;            /* Warm Off-White */
+      --bg-sidebar: #cbebff;         /* Pastel Light Blue */
+      --bg-card: #ffffff;            /* Pure White */
+      --text-main: #2d3748;          /* Deep Slate for high contrast */
+      --text-muted: #62728d;        /* Muted Blue-Grey */
+      --pastel-yellow: #fff2a8;     /* Soft Yellow */
+      --pastel-yellow-dark: #f0db6e;/* Darker Yellow for borders/hover */
+      --pastel-blue: #cbebff;        /* Soft Light Blue */
+      --pastel-pink: #ffd6e7;        /* Soft Pink */
+      --pastel-pink-dark: #fca1c9;  /* Pink Border Accent */
+      --border: #f0e6db;             /* Light Neutral Border */
+      --sidebar-text: #2c3e50;
+      --sidebar-active-bg: #fff2a8;
+      --sidebar-active-text: #2c3e50;
+      --card-shadow: 0 4px 15px rgba(203, 235, 255, 0.4);
+    }
+
+    /* Dark Mode Variables */
+    body.dark-mode {
+      --bg-main: #1a1e24;
+      --bg-sidebar: #13171c;
+      --bg-card: #22272e;
+      --text-main: #f0f4f8;
+      --text-muted: #9fb3c8;
+      --border: #2d3748;
+      --sidebar-text: #e2e8f0;
+      --sidebar-active-bg: #3b4a6b;
+      --sidebar-active-text: #fff2a8;
+      --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* --- SIDEBAR STYLES --- */
+    aside {
+      width: 270px;
+      background-color: var(--bg-sidebar);
+      padding: 1.75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+      border-right: 2px solid var(--border);
+    }
+
+    /* LOGO & BRAND SECTION */
+    .brand-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo-holder {
+      width: 95px;
+      height: 95px;
+      background-color: #ffffff;
+      border: 3px solid var(--pastel-pink-dark);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .logo-holder img {
+      width: 80%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .logo-placeholder-icon {
+      font-size: 2.2rem;
+      color: #ff007f;
+    }
+
+    .brand-title-red {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ff0015;
+      text-transform: uppercase;
+      line-height: 0.9;
+      letter-spacing: 0.5px;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-title-yellow {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #ffe600;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 0.35rem;
+      text-shadow: 
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000,
+         0px  3px 0 #000;
+    }
+
+    .brand-subtitle-white {
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-shadow: 
+        -1.5px -1.5px 0 #000,  
+         1.5px -1.5px 0 #000,
+        -1.5px  1.5px 0 #000,
+         1.5px  1.5px 0 #000;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      padding-left: 0.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      cursor: pointer;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background-color: var(--sidebar-active-bg);
+      color: var(--sidebar-active-text);
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .logout-btn {
+      background-color: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+      margin-top: auto;
+    }
+
+    .logout-btn:hover {
+      background-color: var(--pastel-pink-dark);
+      color: #ffffff;
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: var(--bg-main);
+      padding: 0.6rem 1.2rem;
+      border-radius: 20px;
+      width: 320px;
+      border: 2px solid var(--pastel-yellow-dark);
+    }
+
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      margin-left: 0.5rem;
+      color: var(--text-main);
+      width: 100%;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .notification-wrapper {
+      position: relative;
+    }
+
+    .notification-btn {
+      background: var(--pastel-pink);
+      border: none;
+      color: var(--text-main);
+      font-size: 1rem;
+      cursor: pointer;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-dropdown {
+      position: absolute;
+      right: 0;
+      top: 2.75rem;
+      width: 250px;
+      background: var(--bg-card);
+      border: 2px solid var(--pastel-pink);
+      border-radius: 12px;
+      box-shadow: var(--card-shadow);
+      padding: 1rem;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-align: center;
+      z-index: 100;
+    }
+
+    .user-trigger {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+
+    .user-trigger:hover {
+      background-color: var(--bg-main);
+    }
+
+    .user-info {
+      text-align: right;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-main);
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--pastel-yellow);
+      color: #2c3e50;
+      border: 2px solid var(--pastel-yellow-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .user-popup-box {
+      position: absolute;
+      top: 3.5rem;
+      right: 0;
+      width: 260px;
+      background: var(--bg-card);
+      border: 2px solid var(--pastel-yellow-dark);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      padding: 1.25rem;
+      z-index: 200;
+    }
+
+    .popup-user-header {
+      border-bottom: 2px solid var(--bg-main);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .popup-user-header h4 {
+      font-size: 1rem;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .popup-user-header p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .popup-menu {
+      list-style: none;
+    }
+
+    .popup-menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .popup-menu-item:hover {
+      color: var(--pastel-pink-dark);
+    }
+
+    .popup-logout {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--bg-main);
+      color: #e53e3e;
+      font-weight: 700;
+    }
+
+    .content-container {
+      padding: 2rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* --- STATS GRID --- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--pastel-pink-dark);
+      box-shadow: 0 12px 20px rgba(255, 214, 231, 0.4);
+    }
+
+    .stat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .stat-card h3 {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .stat-icon {
+      font-size: 1.25rem;
+      color: #2c3e50;
+      background-color: var(--pastel-yellow);
+      padding: 0.6rem;
+      border-radius: 12px;
+    }
+
+    .stat-card .value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* --- MENU VIEW & CONTROLS --- */
+    .inventory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .action-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sort-select {
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      border: 2px solid var(--pastel-yellow-dark);
+      padding: 0.6rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .btn-toggle {
+      background-color: var(--pastel-pink);
+      color: #2c3e50;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .btn-toggle:hover {
+      background-color: var(--pastel-pink-dark);
+      color: #ffffff;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* --- PRODUCT CARD STYLES --- */
+    .product-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--pastel-yellow-dark);
+      box-shadow: 0 12px 20px rgba(255, 242, 168, 0.5);
+    }
+
+    .product-image-container {
+      width: 100%;
+      height: 120px;
+      background-color: var(--pastel-blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .product-image-container i {
+      font-size: 2.8rem;
+      color: var(--text-main);
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image-container i {
+      transform: scale(1.2) rotate(-5deg);
+    }
+
+    .badge {
+      align-self: flex-start;
+      background-color: var(--pastel-yellow);
+      color: #2c3e50;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .product-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #2c3e50;
+    }
+
+    /* --- SETTINGS VIEW STYLES --- */
+    .settings-card {
+      background: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      max-width: 500px;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--bg-main);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #e2e8f0;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--pastel-pink-dark);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* --- Settings Action Buttons --- */
+    .settings-action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1rem;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .settings-action-btn:hover {
+      background-color: var(--pastel-pink);
+      color: var(--sidebar-active-text);
+    }
+    .settings-action-btn[style*="#e53e3e"]:hover {
+      background-color: #fee2e2;
+      color: #c53030;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LEFT SIDEBAR -->
+  <aside>
+    <div>
+      <div class="brand-container">
+        <div class="logo-holder">
+          <img src="logo.png" alt="Sugar Baby Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <i class="fa-solid fa-mug-hot logo-placeholder-icon" style="display: none;"></i>
+        </div>
+        <div class="brand-title-red">SUGAR</div>
+        <div class="brand-title-yellow">BABY</div>
+        <div class="brand-subtitle-white">MILK TEA & COFFEE</div>
+      </div>
+
+      <div class="nav-section">
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item active" data-tab="dashboard">
+              <i class="fa-solid fa-chart-pie"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="menu">
+              <i class="fa-solid fa-glass-water"></i> Menu
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="orders">
+              <i class="fa-solid fa-cart-shopping"></i> Orders
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="history">
+              <i class="fa-solid fa-clock-rotate-left"></i> History
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">System</div>
+        <ul class="nav-links">
+          <li>
+            <a class="nav-item" data-tab="settings">
+              <i class="fa-solid fa-gear"></i> Settings
+            </a>
+          </li>
+          <li>
+            <a class="nav-item" data-tab="about">
+              <i class="fa-solid fa-circle-info"></i> About Us
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="logout-btn" onclick="alert('Logging out...')">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Log Out</span>
+    </button>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <header>
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass" style="color: var(--text-muted)"></i>
+        <input type="text" id="searchInput" placeholder="Search milk tea & coffee...">
+      </div>
+
+      <div class="user-profile">
+        <div class="notification-wrapper">
+          <button class="notification-btn" id="notifBtn">
+            <i class="fa-regular fa-bell"></i>
+          </button>
+          <div class="notification-dropdown hidden" id="notifDropdown">
+            No notifications to show
+          </div>
+        </div>
+
+        <div class="user-trigger" id="userTrigger">
+          <div class="user-info">
+            <div class="user-name">John Laurenz Sunga</div>
+            <div class="user-role">Store Manager</div>
+          </div>
+          <div class="avatar">SB</div>
+        </div>
+
+        <div class="user-popup-box hidden" id="userPopup">
+          <div class="popup-user-header">
+            <h4 id="popupUserName">John Laurenz Sunga</h4>
+            <p>sungajohnlaurenzso@gmail.com</p>
+          </div>
+          <ul class="popup-menu">
+            <li>
+              <a class="popup-menu-item" onclick="switchTab('settings')">
+                <span><i class="fa-solid fa-gear"></i> Settings</span>
+                <i class="fa-solid fa-chevron-right" style="font-size: 0.75rem;"></i>
+              </a>
+            </li>
+            <li class="popup-menu-item">
+              <span><i class="fa-solid fa-moon"></i> Dark Mode</span>
+              <label class="switch">
+                <input type="checkbox" class="darkModeToggle">
+                <span class="slider"></span>
+              </label>
+            </li>
+            <li class="popup-menu-item popup-logout" onclick="alert('Logging out...')">
+              <span><i class="fa-solid fa-right-from-bracket"></i> Log Out</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content-container">
+
+      <!-- 1. DASHBOARD VIEW -->
+      <section id="dashboard" class="tab-content active">
+        <h2 style="margin-bottom: 1.5rem; color: var(--text-main);">Sugar Baby Dashboard</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <h3>Daily Sales</h3>
+              <i class="fa-solid fa-peso-sign stat-icon"></i>
+            </div>
+            <div class="value">₱18,450</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <h3>Cups Sold</h3>
+              <i class="fa-solid fa-glass-water stat-icon"></i>
+            </div>
+            <div class="value">342</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <h3>Pending Orders</h3>
+              <i class="fa-solid fa-receipt stat-icon"></i>
+            </div>
+            <div class="value">12</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-header">
+              <h3>Active Flavors</h3>
+              <i class="fa-solid fa-mug-hot stat-icon"></i>
+            </div>
+            <div class="value" id="totalFlavorsCount">24</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. MENU VIEW -->
+      <section id="menu" class="tab-content">
+        <div class="inventory-header">
+          <div>
+            <h2 style="color: var(--text-main);">Sugar Baby Menu</h2>
+            <p style="color: var(--text-muted); font-size: 0.875rem;">Explore our Milk Tea & Coffee offerings</p>
+          </div>
+          
+          <div class="action-controls">
+            <select id="sortSelect" class="sort-select">
+              <option value="" disabled selected>Sort By</option>
+              <option value="price-low">▼ Price Low to High</option>
+              <option value="price-high">▼ Price High to Low</option>
+              <option value="name-az">▼ Name A-Z</option>
+              <option value="name-za">▼ Name Z-A</option>
+            </select>
+
+            <button id="addNewItemBtn" class="btn-toggle" style="background-color: var(--pastel-yellow); border: 2px solid var(--pastel-yellow-dark);">
+              <i class="fa-solid fa-plus"></i> <span>Add New Item</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CATEGORY TABS CONTAINER -->
+        <div id="categoryTabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; overflow-x: auto; padding-bottom: 0.5rem;"></div>
+
+        <!-- PRODUCTS GRID CONTAINER -->
+        <div id="productsGrid" class="products-grid"></div>
+      </section>
+
+      <!-- 3. ORDERS VIEW -->
+      <section id="orders" class="tab-content">
+        <h2 style="color: var(--text-main);">Active Orders</h2>
+        <p style="margin-top: 1rem; color: var(--text-muted);">No current pending orders right now.</p>
+      </section>
+
+      <!-- 4. HISTORY VIEW -->
+      <section id="history" class="tab-content">
+        <h2 style="color: var(--text-main);">Order History</h2>
+        <p style="margin-top: 1rem; color: var(--text-muted);">Recent transactions will appear here.</p>
+      </section>
+
+      <!-- 5. SETTINGS VIEW -->
+      <section id="settings" class="tab-content">
+        <h2 style="margin-bottom: 1.5rem; color: var(--text-main);">Settings & Account</h2>
+        
+        <!-- 🆕 SEPARATE TOP CONTAINER: Account Switch & Management -->
+        <div class="settings-card" style="max-width: 900px; margin-bottom:2rem; border-color: var(--pastel-pink-dark);">
+
+          <!-- Current Active Account -->
+            <div class="avatar-profile-group" style="text-align: center; margin: 25px 0;">
+              <div id="settingsBigAvatar" style="width: 120px; height: 120px; border-radius: 50%; background: #99ccff; display: flex; align-items: center; justify-content: center; font-size: 50px; font-weight: bold; color: white; margin: 0 auto 10px;">J</div>
+              <div id="settingsFullName" style="font-size: 28px; font-weight: bold; color: #222;">John Laurenz Sunga</div>
+              <div style="font-size: 20px; color: #555; margin-top: 5px;">Account</div>
+              <div style="display:none;" id="currentActiveAcc">John Laurenz Sunga</div>
+            </div>
+
+          <!-- Add Account Button -->
+          <div class="setting-item">
+            <div>
+              <strong>Add New Account</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Add user accounts</p>
+            </div>
+            <button class="settings-action-btn" onclick="openModal('addAccount')"><i class="fa-solid fa-user-plus"></i></button>
+          </div>
+
+          <!-- Added Accounts List (will appear here automatically) -->
+          <div style="margin-top:1rem;">
+            <h5 style="font-size:0.85rem; color:var(--text-muted); margin:0.5rem 0 1rem 0;">Saved Accounts</h5>
+            <div id="addedAccountsList" style="display:flex; flex-direction:column; gap:0.6rem;">
+              <!-- New accounts load here automatically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- SINGLE MAIN CONTAINER ONLY -->
+        <div class="settings-card" style="max-width: 900px;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem; border-bottom: 2px solid var(--border); padding-bottom: 0.75rem;">
+            <i class="fa-solid fa-gear" style="color: var(--pastel-pink-dark);"></i> Account & System Settings
+          </h3>
+
+          <!-- 2-COLUMN LAYOUT INSIDE ONE CONTAINER -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            
+            <!-- LEFT: ACCOUNT MANAGEMENT -->
+            <div>
+              <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-user-circle" style="color: var(--pastel-pink-dark);"></i> Account Management
+              </h4>
+
+              
+
+              <!-- ---- REST OF YOUR SETTINGS STAYS BELOW ---- -->
+              <div class="setting-item" style="margin-top:1.5rem;">
+                <div>
+                  <strong>Edit Profile</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">Name: <span id="exName">John Laurenz Sunga</span> | Email: <span id="exEmail">john@sugarbaby.ph</span></p>
+                </div>
+                <button class="settings-action-btn" onclick="openModal('editProfile')"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+
+              <div class="setting-item">
+                <div>
+                  <strong>Change Password</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">Update login password</p>
+                </div>
+                <button class="settings-action-btn" onclick="openModal('changePassword')"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+
+              <div class="setting-item">
+                <div>
+                  <strong>Delete Account</strong>
+                  <p style="font-size: 0.8rem; color: #e53e3e;">Permanently remove account</p>
+                </div>
+                <button class="settings-action-btn" style="color:#e53e3e;" onclick="confirmDelete()"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            </div>
+
+            <!-- RIGHT: APPEARANCE & SYSTEM -->
+            <div>
+              <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-palette" style="color: var(--pastel-yellow-dark);"></i> Appearance & System
+              </h4>
+
+              <div class="setting-item">
+                <div>
+                  <strong>Dark Mode</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">Switch light / dark theme</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" class="darkModeToggle">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="setting-item">
+                <div>
+                  <strong>Email Notifications</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">Receive order alerts & updates</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="notifToggle" checked>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="setting-item">
+                <div>
+                  <strong>Language</strong>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">System language</p>
+                </div>
+                <span style="padding: 0.5rem 1rem; border-radius: 8px; background: var(--bg-main); border: 1px solid var(--border); color: var(--text-main);">English</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ABOUT US VIEW -->
+      <section id="about" class="tab-content">
+        <h2 style="margin-bottom: 1rem; color: var(--text-main);">About Sugar Baby Shop</h2>
+        <p style="line-height: 1.6; color: var(--text-muted); max-width: 600px;">
+          Welcome to <strong>Sugar Baby Milk Tea & Coffee</strong>! We serve affordable, delicious, and high-quality drinks with various sizes ranging from Regular to Jumbo.
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ADD / EDIT MODAL OVERLAY -->
+  <div id="editModalOverlay" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+    <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 400px; border: 2px solid var(--border); box-shadow: var(--card-shadow);">
+      <h3 style="margin-bottom: 1rem; color: var(--text-main);">Product Details</h3>
+      <form id="editForm">
+        <input type="hidden" id="editItemIndex">
+        
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Item Name</label>
+          <input type="text" id="editItemName" required style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Category</label>
+          <input type="text" id="editItemCategory" required style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--text-main);">Availability</label>
+          <select id="editItemAvailability" style="width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+            <option value="true">Available</option>
+            <option value="false">Unavailable</option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" id="closeModalBtn" style="padding: 0.6rem 1.2rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--text-main); cursor: pointer;">Cancel</button>
+          <button type="submit" style="padding: 0.6rem 1.2rem; border-radius: 8px; border: none; background: var(--pastel-pink-dark); color: white; font-weight: 700; cursor: pointer;">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- SETTINGS FORM MODAL -->
+  <div id="settingsModal" class="hidden" style="position: fixed; inset:0; background: rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:1000;">
+    <div style="background:var(--bg-card); border-radius:16px; padding:2rem; width:420px; border:2px solid var(--border);">
+      <h3 id="modalTitle" style="margin-bottom:1rem; color:var(--text-main);"></h3>
+      <form id="settingsForm">
+        <div id="modalFields"></div>
+        <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem;">
+          <button type="button" onclick="closeSettingsModal()" style="padding:0.6rem 1.2rem; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--text-main);">Cancel</button>
+          <button type="submit" style="padding:0.6rem 1.2rem; border-radius:8px; border:none; background:var(--pastel-pink-dark); color:white; font-weight:700;">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- FULL WORKING SCRIPT: Tabs + Dark Mode + Popups -->
+  <script>
+    // Store all added user accounts
+    let savedAccounts = [];
+
+    function updateAvatar(fullName) {
+        const firstLetter = fullName.trim().charAt(0).toUpperCase();
+        // ONLY update the big centered avatar + name in Settings
+        const bigAvatar = document.getElementById('settingsBigAvatar');
+        const nameDisplay = document.getElementById('settingsFullName');
+        if (bigAvatar) bigAvatar.textContent = firstLetter;
+        if (nameDisplay) nameDisplay.textContent = fullName;
+    }
+    // --------------------------
+    // TAB SWITCHING SYSTEM
+    // --------------------------
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    navItems.forEach(navLink => {
+      navLink.addEventListener('click', function () {
+        // Remove active state from all
+        navItems.forEach(link => link.classList.remove('active'));
+        tabContents.forEach(section => section.classList.remove('active'));
+        // Add active to clicked
+        this.classList.add('active');
+        const tabId = this.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Allow switching tab from inside user popup too
+    function switchTab(tabName) {
+      navItems.forEach(link => link.classList.remove('active'));
+      tabContents.forEach(section => section.classList.remove('active'));
+      document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+      document.getElementById(tabName).classList.add('active');
+      hideUserPopup(); // close popup after switch
+    }
+
+    // --------------------------
+    // DARK MODE TOGGLE (SYNC ALL SWITCHES)
+    // --------------------------
+    const darkToggles = document.querySelectorAll('.darkModeToggle');
+    darkToggles.forEach(toggle => {
+      toggle.addEventListener('change', function () {
+        const isDark = this.checked;
+        document.body.classList.toggle('dark-mode', isDark);
+        // Keep all dark mode switches in sync
+        darkToggles.forEach(t => t.checked = isDark);
+      });
+    });
+
+    // --------------------------
+    // USER PROFILE POPUP SHOW/HIDE
+    // --------------------------
+    const userTrigger = document.getElementById('userTrigger');
+    const userPopup = document.getElementById('userPopup');
+
+    function hideUserPopup() {
+      userPopup.classList.add('hidden');
+    }
+    function toggleUserPopup() {
+      userPopup.classList.toggle('hidden');
+    }
+
+    if(userTrigger && userPopup){
+      userTrigger.addEventListener('click', toggleUserPopup);
+      // Close popup when clicking outside
+      document.addEventListener('click', function(e){
+        if(!userPopup.contains(e.target) && !userTrigger.contains(e.target)){
+          hideUserPopup();
+        }
+      });
+    }
+
+    // --------------------------
+    // NOTIFICATION POPUP TOGGLE
+    // --------------------------
+    const notifBtn = document.getElementById('notifBtn');
+    const notifDropdown = document.getElementById('notifDropdown');
+    if(notifBtn && notifDropdown){
+      notifBtn.addEventListener('click', () => notifDropdown.classList.toggle('hidden'));
+    }
+
+    let activeModalType = '';
+    function openModal(type){
+      activeModalType = type;
+      const modal = document.getElementById('settingsModal');
+      const title = document.getElementById('modalTitle');
+      const fields = document.getElementById('modalFields');
+      fields.innerHTML = '';
+
+      if(type === 'addAccount'){
+        title.textContent = 'Add New Account';
+        fields.innerHTML = `
+          <div style="margin-bottom:1rem;">
+            <label>Full Name</label>
+            <input type="text" id="newAccName" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label>Email Address</label>
+            <input type="email" id="newAccEmail" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label>Set Password</label>
+            <input type="password" id="newAccPass" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>`;
+      }
+      if(type === 'editProfile'){
+        title.textContent = 'Edit Profile';
+        fields.innerHTML = `
+          <div style="margin-bottom:1rem;">
+            <label>Full Name</label>
+            <input type="text" id="inpName" value="${document.getElementById('exName').textContent}" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label>Email Address</label>
+            <input type="email" id="inpEmail" value="${document.getElementById('exEmail').textContent}" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>`;
+      }
+      if(type === 'changePassword'){
+        title.textContent = 'Change Password';
+        fields.innerHTML = `
+          <div style="margin-bottom:1rem;">
+            <label>Current Password</label>
+            <input type="password" id="oldPass" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>
+          <div style="margin-bottom:1rem;">
+            <label>New Password</label>
+            <input type="password" id="newPass" style="width:100%; padding:0.6rem; border-radius:8px; border:1px solid var(--border); background:var(--bg-main); color:var(--text-main);">
+          </div>`;
+      }
+      document.getElementById('settingsModal').classList.remove('hidden');
+    }
+
+    function closeSettingsModal(){
+      document.getElementById('settingsModal').classList.add('hidden');
+      activeModalType = '';
+    }
+
+    function confirmDelete(){
+      if(confirm("⚠️ Are you sure? This will delete your account permanently!")){
+        alert("Account deleted.");
+      }
+    }
+
+    document.getElementById('settingsForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      if(activeModalType === 'addAccount'){
+        const newName = document.getElementById('newAccName').value;
+        const newEmail = document.getElementById('newAccEmail').value;
+        const newPass = document.getElementById('newAccPass').value;
+
+        // Save new account to list
+        savedAccounts.push({ name: newName, email: newEmail, password: newPass });
+
+        // ✅ SHOW NEW ACCOUNT BELOW ADD ACCOUNT, WITH SWITCH BUTTON
+        const listContainer = document.getElementById('addedAccountsList');
+        const accItem = document.createElement('div');
+        accItem.className = 'setting-item';
+        accItem.style.padding = '0.6rem 0.8rem';
+        accItem.innerHTML = `
+          <div>
+            <strong>${newName}</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted);">${newEmail}</p>
+          </div>
+          <button class="settings-action-btn" onclick="switchToThisAccount(this, '${newName}', '${newEmail}')">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i> Switch
+          </button>
+        `;
+        listContainer.appendChild(accItem);
+
+        alert(`New account added: ${newName}`);
+        closeSettingsModal();
+      }
+
+      if(activeModalType === 'editProfile'){
+        document.getElementById('exName').textContent = document.getElementById('inpName').value;
+        document.getElementById('exEmail').textContent = document.getElementById('inpEmail').value;
+        alert('Profile updated!');
+      }
+      if(activeModalType === 'changePassword') alert('Password changed!');
+      if(activeModalType === 'editAddress'){
+        document.getElementById('exAddress').textContent = document.getElementById('inpAddress').value;
+        alert('Address updated!');
+      }
+      closeSettingsModal();
+    });
+
+    function switchToThisAccount(buttonEl, accName, accEmail){
+      const oldActiveName = document.getElementById('currentActiveAcc').textContent;
+
+      // Move old active back to saved list
+      if (oldActiveName.trim() !== accName.trim()) {
+        const oldActiveEmail = document.getElementById('exEmail').textContent;
+        savedAccounts.push({ name: oldActiveName, email: oldActiveEmail });
+
+        const listContainer = document.getElementById('addedAccountsList');
+        const accItem = document.createElement('div');
+        accItem.className = 'setting-item';
+        accItem.style.padding = '0.6rem 0.8rem';
+        accItem.innerHTML = `
+          <div>
+            <strong>${oldActiveName}</strong>
+            <p style="font-size:0.75rem; color:var(--text-muted);">${oldActiveEmail}</p>
+          </div>
+          <button class="settings-action-btn" onclick="switchToThisAccount(this, '${oldActiveName}', '${oldActiveEmail}')">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i> Switch
+          </button>
+        `;
+        listContainer.appendChild(accItem);
+      }
+
+      // ✅ UPDATE ALL active account info + trigger avatar/name refresh
+      document.getElementById('currentActiveAcc').textContent = accName;
+      document.getElementById('exName').textContent = accName;
+      document.getElementById('exEmail').textContent = accEmail;
+      updateAvatar(accName); // <-- THIS IS THE MISSING LINE THAT REFRESHES BIG AVATAR + FULL NAME
+
+      // Remove clicked account row from list
+      const accountRow = buttonEl.closest('.setting-item');
+      if(accountRow) accountRow.remove();
+      savedAccounts = savedAccounts.filter(acc => acc.name !== accName);
+
+      alert(`Switched successfully to: ${accName}`);
+    }
+  </script>
+</body>
+</html>

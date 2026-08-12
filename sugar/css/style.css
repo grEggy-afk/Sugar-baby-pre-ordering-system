@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Page Layout - Light Sky Blue Background (Dashboard Theme) */
+body.desktop-auth-page,
+body.auth-page-shared {
+    background-color: #CDE9F7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Outer Wrapper Card */
+.auth-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 880px;
+    background: #FFFFFF;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Left Section - Branding */
+.auth-banner {
+    flex: 1;
+    background: #FFFFFF;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Tinitiyak na nasa gitna ang mga anak nito */
+    text-align: center;
+    border-right: 1px solid #F0F0F0;
+}
+
+/* Top Milk Tea Icon - FURTHER ADJUSTED TO THE LEFT */
+.banner-drink-icon {
+    width: 100px;
+    height: auto;
+    margin-bottom: 12px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateX(-15px); /* Mas dinagdagan pa ang tulak pakaliwa */
+}
+
+/* Bottom Text Logo Image */
+.banner-text-logo {
+    width: 160px;
+    height: auto;
+    margin-bottom: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.auth-banner p {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555555;
+    max-width: 220px;
+    line-height: 1.4;
+}
+
+/* Right Form Section */
+.auth-card {
+    flex: 1.1;
+    background: #FFFFFF;
+    padding: 40px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-card h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 4px;
+}
+
+.auth-card .subtitle {
+    color: #666666;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+
+.input-group label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #444444;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #DDDDDD;
+    background: #FAFAFA;
+    border-radius: 30px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #F8E092;
+    background: #FFFFFF;
+}
+
+/* Forgot Password Link Styling */
+.forgot-pass-wrapper {
+    text-align: right;
+    margin-top: -4px;
+    margin-bottom: 16px;
+}
+
+.forgot-pass-wrapper a {
+    font-size: 12px;
+    color: #E53935;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.forgot-pass-wrapper a:hover {
+    text-decoration: underline;
+}
+
+/* Primary Action Button (Yellow Active Theme) */
+.primary-btn {
+    width: 100%;
+    padding: 13px;
+    background: #F8E092;
+    color: #222222;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(248, 224, 146, 0.4);
+    transition: background 0.2s, transform 0.1s;
+}
+
+.primary-btn:hover {
+    background: #F3C96F;
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+/* Divider Line */
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 16px 0;
+    color: #888888;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.divider span {
+    padding: 0 10px;
+}
+
+/* Google OAuth Button */
+.google-btn {
+    width: 100%;
+    padding: 11px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.google-btn:hover {
+    background: #F7F7F7;
+}
+
+/* Facebook Button */
+.facebook-btn {
+    width: 100%;
+    margin-top: 11px;
+    padding: 11px;
+    border: none;
+    border-radius: 30px;
+    background: #1877F2;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.facebook-btn:hover {
+    background: #166FE5;
+}
+
+.facebook-btn svg {
+    flex-shrink: 0;
+}
+
+/* Auth Footer */
+.auth-footer {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #555555;
+}
+
+.auth-footer a {
+    color: #E53935;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
