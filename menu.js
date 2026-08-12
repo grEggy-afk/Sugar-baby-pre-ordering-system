@@ -250,9 +250,6 @@ function handleQuickAddToCart(productId) {
   const product = menuItems.find(p => String(p.id) === String(productId));
   if (!product) return;
 
-  const defaultSize = "Large";
-  const basePrice = product.prices[defaultSize] || product.basePrice;
-
   let cartModal = document.getElementById("cartModalOverlay");
   if (!cartModal) {
     cartModal = document.createElement("div");
@@ -265,11 +262,31 @@ function handleQuickAddToCart(productId) {
     document.body.appendChild(cartModal);
   }
 
+  const prices = product.prices || DEFAULT_PRICES;
+
   cartModal.innerHTML = `
     <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
-      <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">Add to Cart</h3>
-      <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: 1.5rem;">${product.name}</p>
+      <div style="font-size: 3rem; color: var(--pastel-pink-dark); margin-bottom: 0.5rem;">
+        <i class="fa-solid ${product.icon}"></i>
+      </div>
+      <h3 style="color: var(--text-main); margin-bottom: 0.2rem;">Add to Cart</h3>
+      <p style="font-size: 0.95rem; font-weight: 600; color: var(--text-main); margin-bottom: 1rem;">${product.name}</p>
       
+      <div style="text-align: left; margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text-main);">Size:</label>
+        <select id="cartItemSize" class="form-control" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+          <option value="Regular">Regular - ₱${prices.Regular || 25}.00</option>
+          <option value="Large" selected>Large - ₱${prices.Large || 35}.00</option>
+          <option value="XLarge">XLarge - ₱${prices.XLarge || 45}.00</option>
+          <option value="Jumbo">Jumbo - ₱${prices.Jumbo || 60}.00</option>
+        </select>
+      </div>
+
+      <div style="text-align: left; margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text-main);">Quantity:</label>
+        <input type="number" id="cartItemQuantity" min="1" value="1" class="form-control" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+      </div>
+
       <div style="display: flex; gap: 10px;">
         <button type="button" id="cancelCartBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border); cursor: pointer;">Cancel</button>
         <button type="button" id="confirmCartBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white; cursor: pointer;">Add to Cart</button>
@@ -284,21 +301,26 @@ function handleQuickAddToCart(productId) {
   };
 
   document.getElementById("confirmCartBtn").onclick = () => {
+    const selectedSize = document.getElementById("cartItemSize").value;
+    const quantity = parseInt(document.getElementById("cartItemQuantity").value) || 1;
+    const basePrice = prices[selectedSize] || 35;
+    const totalPrice = basePrice * quantity;
+
     cart.push({
       id: Date.now(),
       productId: product.id,
       name: product.name,
       category: product.category,
-      size: defaultSize,
+      size: selectedSize,
       basePrice: basePrice,
       addOns: [],
-      quantity: 1,
-      totalPrice: basePrice
+      quantity: quantity,
+      totalPrice: totalPrice
     });
 
     notify(
       "Added to Cart",
-      `${product.name} has been added to your cart.`
+      `${quantity}x ${product.name} (${selectedSize}) has been added to your cart.`
     );
 
     cartModal.classList.add("hidden");
@@ -407,6 +429,15 @@ function openOrderModal(productId) {
   if (orderItemName) orderItemName.textContent = product.name;
   if (orderItemCategory) orderItemCategory.textContent = product.category;
   
+  let modalImageContainer = document.getElementById("modalImageContainer");
+  if (!modalImageContainer) {
+    modalImageContainer = document.createElement("div");
+    modalImageContainer.id = "modalImageContainer";
+    modalImageContainer.style.cssText = "text-align: center; font-size: 3rem; color: var(--pastel-pink-dark); margin-bottom: 0.5rem;";
+    if (orderForm) orderForm.prepend(modalImageContainer);
+  }
+  modalImageContainer.innerHTML = `<i class="fa-solid ${product.icon}"></i>`;
+
   if (orderItemSize) {
     const prices = product.prices || DEFAULT_PRICES;
     orderItemSize.innerHTML = `
@@ -432,6 +463,16 @@ function openOrderModal(productId) {
     }
 
     modalExtraContainer.innerHTML = `
+      <div class="form-group" style="margin-bottom: 1rem;">
+        <label for="orderSweetnessLevel" style="display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Sweetness Level:</label>
+        <select id="orderSweetnessLevel" class="form-control" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main);">
+          <option value="100%">100%</option>
+          <option value="75%">75%</option>
+          <option value="50%">50%</option>
+          <option value="20%">20%</option>
+        </select>
+      </div>
+
       <div id="modalAddOnsContainer" style="margin-bottom: 1rem;"></div>
       <div class="form-group" style="margin-top: 1rem;">
         <label for="orderPickupTime" style="display: block; font-size: 0.875rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main);">Pick-Up Time:</label>
@@ -498,7 +539,7 @@ function showQRPaymentModal(refNo, totalAmount, singleItem) {
 
   qrModal.innerHTML = `
     <div style="background: var(--bg-card); padding: 2rem; border-radius: 16px; width: 90%; max-width: 400px; text-align: center; border: 1px solid var(--border); box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
-      <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">Scan QR to Pay</h3>
+      <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">Scan to Pay</h3>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Reference: <strong>${refNo}</strong></p>
       
       <div style="background: white; padding: 1.5rem; display: inline-block; border-radius: 12px; border: 2px dashed var(--border); margin-bottom: 1rem;">
@@ -508,12 +549,19 @@ function showQRPaymentModal(refNo, totalAmount, singleItem) {
         </div>
       </div>
 
-      <p style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.5rem;">Pick-Up Time: <strong>${singleItem.pickupTime}</strong></p>
+      <p style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Marvin Bayan</p>
+
+      <div style="text-align: left; margin-bottom: 1rem;">
+        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--text-main);">Upload Payment Box Here:</label>
+        <input type="file" id="paymentProofInput" accept="image/*" class="form-control" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-main); color: var(--text-main); font-size: 0.85rem;">
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-main); margin-bottom: 0.3rem;">Sweetness: <strong>${singleItem.sweetness || '100%'}</strong> | Pick-Up: <strong>${singleItem.pickupTime}</strong></p>
       <p style="font-size: 1rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem;">Total Due: ₱${totalAmount.toFixed(2)}</p>
       
       <div style="display: flex; gap: 10px;">
         <button type="button" id="closeQrModalBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border);">Cancel</button>
-        <button type="button" id="simulatePaymentBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white;">Order Succesful</button>
+        <button type="button" id="simulatePaymentBtn" class="btn-toggle" style="flex: 1; justify-content: center; background: var(--pastel-pink-dark); color: white;">Order</button>
       </div>
     </div>
   `;
@@ -526,12 +574,12 @@ function showQRPaymentModal(refNo, totalAmount, singleItem) {
 
   document.getElementById("simulatePaymentBtn").onclick = () => {
     notify(
-      `Order Successful (${refNo})`,
-      `Your order of ₱${totalAmount.toFixed(2)} for ${singleItem.name} (${singleItem.size}) was successfully placed. Pick-up scheduled at ${singleItem.pickupTime}.`
+      "Order Placed",
+      `Your order of ₱${totalAmount.toFixed(2)} for ${singleItem.name} (${singleItem.size}, ${singleItem.sweetness}) has been placed successfully. Pick-up at ${singleItem.pickupTime}.`
     );
 
     qrModal.classList.add("hidden");
-    alert("Order successful!");
+    alert("Order Placed");
   };
 }
 
@@ -604,6 +652,9 @@ function initEventListeners() {
       const basePrice = pricesObj[selectedSize] || 35;
       const qty = parseInt(orderQuantity ? orderQuantity.value : 1) || 1;
       
+      const sweetnessSelect = document.getElementById("orderSweetnessLevel");
+      const selectedSweetness = sweetnessSelect ? sweetnessSelect.value : '100%';
+
       const pickupTimeSelect = document.getElementById("orderPickupTime");
       const selectedPickupTime = pickupTimeSelect ? pickupTimeSelect.value : '8:00 AM';
 
@@ -620,6 +671,7 @@ function initEventListeners() {
         category: product ? product.category : 'General',
         size: selectedSize,
         basePrice: basePrice,
+        sweetness: selectedSweetness,
         addOns: selectedAddOns,
         quantity: qty,
         pickupTime: selectedPickupTime,
