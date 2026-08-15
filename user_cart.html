@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sugar Baby - My Cart</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="user_cart.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <a href="index.html" class="sidebar-brand">
+
+            <div class="sidebar-logo-circle">
+                <img
+                    src="SUGAR BABY 2.png"
+                    alt="Sugar Baby Logo"
+                >
+            </div>
+
+            <div class="sidebar-brand-name">
+                <span class="sugar">SUGAR</span>
+                <span class="baby">BABY</span>
+            </div>
+
+            <div class="sidebar-subtitle">
+                MILK TEA &amp; COFFEE
+            </div>
+
+        </a>
+
+        <div class="sidebar-section">
+
+            <div class="menu-title">
+                MENU
+            </div>
+
+            <nav class="sidebar-menu">
+
+               
+
+                <a href="dashboard.html" class="sidebar-link">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    Dashboard
+                </a>
+
+                <a href="menu.html" class="sidebar-link">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    Menu
+                </a>
+
+                <a href="orders.html" class="sidebar-link active ">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    Orders
+                </a>
+
+                <a href="history.html" class="sidebar-link">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    History
+                </a>
+
+            </nav>
+
+        </div>
+
+        <div class="sidebar-section">
+
+            <div class="menu-title">
+                SYSTEM
+            </div>
+
+            <nav class="sidebar-menu">
+
+                <a href="settings.html" class="sidebar-link">
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </a>
+
+                <a href="about.html" class="sidebar-link">
+                    <i class="fa-solid fa-circle-info"></i>
+                    About Us
+                </a>
+
+            </nav>
+
+        </div>
+
+        <a href="login.html" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            &nbsp; Log Out
+        </a>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <div class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="site-header">
+
+            <a href="index.html" class="back-btn">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Home
+            </a>
+
+            <a href="index.html" class="header-brand">
+
+                <span class="header-brand-icon">
+                    <img
+                        src="SUGAR BABY 2.png"
+                        alt="Sugar Baby Logo"
+                    >
+                </span>
+
+                <span class="header-brand-text">
+                    <strong>CART</strong>
+                    <small>MILK TEA &amp; COFFEE</small>
+                </span>
+
+            </a>
+
+            <div class="header-right">
+
+                <button
+                    class="notification-btn"
+                    type="button"
+                    aria-label="Notifications"
+                >
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+                <div class="user-avatar">
+                    SB
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             CART CONTENT
+        ====================================================== -->
+
+        <main class="cart-page">
+
+            <section class="cart-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        YOUR ORDER
+                    </span>
+
+                    <h1>
+                        Your Cart
+                    </h1>
+
+                    <p>
+                        Review your items before checkout.
+                    </p>
+
+                </div>
+
+                <button
+                    id="clearCartBtn"
+                    class="clear-btn"
+                    type="button"
+                >
+                    <i class="fa-solid fa-trash-can"></i>
+                    Clear Cart
+                </button>
+
+            </section>
+
+
+            <section class="cart-layout">
+
+                <!-- CART ITEMS -->
+
+                <div
+                    id="cartItemsContainer"
+                    class="cart-card cart-items-card"
+                >
+                    <!-- JavaScript will render cart items here -->
+                </div>
+
+
+                <!-- ORDER SUMMARY -->
+
+                <aside class="cart-card summary-card">
+
+                    
+
+                   <div class="summary-card">
+    <h2>Order Summary</h2>
+
+    <div class="summary-row">
+        <span>Items (<span id="summaryQuantity">0</span>)</span>
+        <strong id="summaryItemsPrice">₱0.00</strong>
+    </div>
+
+    <div class="summary-row">
+        <span>Subtotal</span>
+        <strong id="summarySubtotal">₱0.00</strong>
+    </div>
+
+    <!-- Pickup Time Row -->
+    <div class="summary-pickup">
+        <span>Pick-Up Time:</span>
+        <strong id="summaryPickupTime">--:--</strong>
+    </div>
+    <br>
+    
+
+    <!-- Only ONE Total -->
+    <div class="summary-total">
+        <span>Total</span>
+        <strong id="summaryTotal">₱0.00</strong>
+    </div>
+
+    <button id="checkoutBtn" class="checkout-btn">
+        <i class="fa-solid fa-credit-card"></i> Proceed to Checkout
+    </button>
+</div>
+
+
+
+            <!-- CART FOOTER -->
+
+            <section class="cart-footer-card">
+
+                <div class="footer-cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+
+                <h2>
+                    Your cart is looking good!
+                </h2>
+
+                <p>
+                    Add more items from the menu.
+                </p>
+
+                <a
+                    href="menu.html"
+                    class="browse-btn"
+                >
+                    Browse Menu
+                </a>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CHECKOUT MODAL
+========================================================= -->
+
+<div
+    id="checkoutModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-card">
+
+        <button
+            id="closeCheckoutBtn"
+            class="modal-close"
+            type="button"
+            aria-label="Close"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h2>
+            Ready to Order?
+        </h2>
+
+        <p class="modal-subtitle">
+            Confirm your cart before continuing to payment.
+        </p>
+
+        <div class="checkout-total">
+
+            <span>
+                Total Due
+            </span>
+
+            <strong id="modalTotal">
+                ₱0.00
+            </strong>
+
+        </div>
+
+        <div class="qr-placeholder">
+
+            <i class="fa-solid fa-qrcode"></i>
+
+            <span>
+                QR PAYMENT
+            </span>
+
+            <small>
+                Payment QR placeholder
+            </small>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelCheckoutBtn"
+                class="modal-secondary"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="confirmCheckoutBtn"
+                class="modal-primary"
+                type="button"
+            >
+                Order Successful
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     EDIT MODAL
+========================================================= -->
+
+<div
+    id="editModal"
+    class="modal hidden"
+    aria-hidden="true"
+>
+
+    <div class="modal-card">
+
+        <button
+            id="closeEditBtn"
+            class="modal-close"
+            type="button"
+            aria-label="Close"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h2>
+            Edit Item
+        </h2>
+
+        <p class="modal-subtitle">
+            Update your selected item before checkout.
+        </p>
+
+        <input
+            id="editItemId"
+            type="hidden"
+            value=""
+        >
+
+        <div class="modal-field">
+
+            <label for="editSize">
+                Size
+            </label>
+
+            <select id="editSize">
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+                <option value="Extra Large">Extra Large</option>
+            </select>
+
+        </div>
+
+        <div class="modal-field">
+
+            <label for="editSugarLevel">
+                Sugar Level
+            </label>
+
+            <select id="editSugarLevel">
+                <option value="0%">0%</option>
+                <option value="25%">25%</option>
+                <option value="50%">50%</option>
+                <option value="75%">75%</option>
+                <option value="100%">100%</option>
+            </select>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelEditBtn"
+                class="modal-secondary"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="saveEditBtn"
+                class="modal-primary"
+                type="button"
+            >
+                Save Changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Toast messages -->
+
+<div
+    id="toastContainer"
+    class="toast-container"
+></div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="user_cart.js"></script>
+
+</body>
+</html>

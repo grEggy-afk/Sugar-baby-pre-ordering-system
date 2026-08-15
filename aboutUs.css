@@ -1,0 +1,1415 @@
+/* =========================================================
+   SUGAR BABY - ABOUT US
+   COMPLETE CSS
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    background: #f7f9fb;
+
+    color: #26344a;
+
+    min-height: 100vh;
+}
+
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   APP LAYOUT
+========================================================= */
+
+.app-layout {
+    min-height: 100vh;
+
+    display: flex;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    width: 235px;
+
+    min-height: 100vh;
+
+    background: #CDE9F7;
+
+    padding: 25px 16px;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    border-right: 1px solid #B0D8EB;
+}
+
+
+/* =========================================================
+   SIDEBAR BRAND
+========================================================= */
+
+.sidebar-brand {
+    text-decoration: none;
+
+    text-align: center;
+
+    display: block;
+
+    margin-bottom: 25px;
+}
+
+
+.sidebar-logo-circle {
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 10px;
+
+    background: #ffffff;
+
+    border: 3px solid #ff75ad;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+
+.sidebar-logo-circle img {
+    width: 68px;
+    height: 68px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* =========================================================
+   BRAND NAME
+========================================================= */
+
+.sidebar-brand-name {
+    font-family: 'Holtwood One SC', serif;
+
+    font-size: 23px;
+
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+
+.sidebar-brand-name .sugar {
+    color: #ff005c;
+
+    display: block;
+
+    text-shadow: 2px 2px 0 #111111;
+}
+
+
+.sidebar-brand-name .baby {
+    color: #ffe500;
+
+    display: block;
+
+    text-shadow: 2px 2px 0 #111111;
+}
+
+
+.sidebar-subtitle {
+    margin-top: 7px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    color: #222222;
+
+    letter-spacing: .2px;
+}
+
+
+/* =========================================================
+   SIDEBAR SECTIONS
+========================================================= */
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+
+.menu-title {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #66798c;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+
+    padding: 0 10px;
+
+    margin-bottom: 8px;
+}
+
+
+.sidebar-menu {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+/* =========================================================
+   SIDEBAR LINKS
+========================================================= */
+
+.sidebar-link {
+    text-decoration: none;
+
+    color: #30445a;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 13px;
+
+    border-radius: 11px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+}
+
+
+.sidebar-link i {
+    width: 18px;
+
+    min-width: 18px;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+.sidebar-link:hover {
+    background: #B0D8EB;
+
+    color: #222222;
+}
+
+
+.sidebar-link.active {
+    background: #ffec91;
+
+    color: #26344a;
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-btn {
+    margin-top: auto;
+
+    background: #ffc8dc;
+
+    color: #26344a;
+
+    text-decoration: none;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: .2s ease;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+
+.logout-btn:hover {
+    background: #ffb5d0;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    margin-left: 235px;
+
+    width: calc(100% - 235px);
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.site-header {
+    height: 86px;
+
+    background: #CDE9F7;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding: 0 35px;
+
+    border-bottom: 1px solid #B0D8EB;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-btn {
+    background: #ffec91;
+
+    color: #26344a;
+
+    padding: 10px 18px;
+
+    border-radius: 22px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: .2s ease;
+}
+
+
+.back-btn:hover {
+    background: #ffe476;
+}
+
+
+/* =========================================================
+   CONTACT BUTTON
+========================================================= */
+
+.contact-btn {
+    border: none;
+
+    background: #17243a;
+
+    color: #ffffff;
+
+    padding: 10px 18px;
+
+    border-radius: 22px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: .2s ease;
+}
+
+
+.contact-btn:hover {
+    background: #26344a;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    background: #ffec91;
+
+    text-align: center;
+
+    padding: 80px 40px;
+
+    border-radius: 20px;
+
+    margin: 40px auto;
+
+    width: min(1200px, calc(100% - 60px));
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .08);
+}
+
+
+.hero h1 {
+    font-size: 34px;
+
+    font-weight: 800;
+
+    color: #26344a;
+
+    margin-bottom: 10px;
+}
+
+
+.hero p {
+    font-size: 16px;
+
+    color: #ff0080;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
+
+section {
+    width: min(1200px, calc(100% - 60px));
+
+    padding: 60px 80px;
+
+    margin: 40px auto;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .08);
+
+    overflow: hidden;
+}
+
+
+section h2 {
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #26344a;
+
+    margin-bottom: 15px;
+}
+
+
+section p {
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    color: #637991;
+
+    margin-bottom: 20px;
+}
+
+
+section p strong {
+    color: #26344a;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   MOTIVATION SECTION
+========================================================= */
+
+.motivation {
+    background: #FFF0F6;
+
+    border: 1px solid #FFD1E3;
+}
+
+
+.motivation h2 {
+    color: #D63384;
+}
+
+
+.motivation p {
+    color: #6F5261;
+}
+
+
+/* =========================================================
+   TWO COLUMN
+========================================================= */
+
+.two-column {
+    background: #EAF7FF;
+
+    border: 1px solid #C7E9FA;
+
+    display: flex;
+
+    gap: 40px;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+}
+
+
+.two-column > div {
+    flex: 1;
+
+    min-width: 280px;
+}
+
+
+.two-column img {
+    width: 100%;
+
+    max-height: 420px;
+
+    object-fit: cover;
+
+    display: block;
+
+    border-radius: 20px;
+}
+
+
+.two-column p {
+    margin-top: 15px;
+
+    color: #587084;
+}
+
+
+/* =========================================================
+   BUSINESS GROWTH
+========================================================= */
+
+.business-growth {
+    background: #FFF8E5;
+
+    border: 1px solid #F6E3A7;
+}
+
+
+.business-growth h2 {
+    color: #B77900;
+}
+
+
+.business-growth p {
+    color: #6F6245;
+}
+
+
+/* =========================================================
+   SECTION IMAGES
+========================================================= */
+
+section > img {
+    width: 100%;
+
+    max-height: 450px;
+
+    object-fit: cover;
+
+    display: block;
+
+    margin-top: 25px;
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+    background: #F3EEFF;
+
+    border: 1px solid #DDD1FA;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+
+    text-align: center;
+}
+
+
+.stat {
+    margin: 0;
+
+    padding: 25px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #E3DDF3;
+
+    border-radius: 15px;
+
+    transition: .2s ease;
+}
+
+
+.stat:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, .08);
+}
+
+
+.stat h3 {
+    font-size: 25px;
+
+    color: #7B5CC7;
+
+    font-weight: 800;
+
+    margin-bottom: 5px;
+}
+
+
+.stat p {
+    font-size: 14px;
+
+    color: #71849a;
+
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   STORE INFO
+========================================================= */
+
+.store-info {
+    background: #EFFFF4;
+
+    border: 1px solid #C9EFD7;
+}
+
+
+.store-info h2 {
+    color: #26844A;
+}
+
+
+.store-info p {
+    color: #527360;
+}
+
+
+/* =========================================================
+   SYSTEM INFO
+========================================================= */
+
+.system-info {
+    background: #FFF0E5;
+
+    border: 1px solid #F4D5BD;
+}
+
+
+.system-info h2 {
+    color: #B65F28;
+}
+
+
+.system-info p {
+    color: #725A4A;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #CDE9F7;
+
+    text-align: center;
+
+    padding: 20px;
+
+    margin-top: 40px;
+
+    border-top: 1px solid #B0D8EB;
+}
+
+
+footer p {
+    color: #526b82;
+
+    font-size: 12px;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   =========================================================
+   CONTACT US MODAL
+   =========================================================
+========================================================= */
+
+.contact-modal {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* =========================================================
+   HIDDEN MODAL
+========================================================= */
+
+.contact-modal.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   BACKDROP
+========================================================= */
+
+.contact-modal-backdrop {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.60);
+
+    backdrop-filter: blur(4px);
+
+    -webkit-backdrop-filter: blur(4px);
+}
+
+
+/* =========================================================
+   MODAL CARD
+========================================================= */
+
+.contact-modal-card {
+    position: relative;
+
+    z-index: 100000;
+
+    width: 100%;
+
+    max-width: 450px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 24px;
+
+    padding: 35px 30px 30px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.30);
+
+    animation: modalShow 0.25s ease;
+}
+
+
+/* =========================================================
+   MODAL ANIMATION
+========================================================= */
+
+@keyframes modalShow {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CLOSE X
+========================================================= */
+
+.contact-modal-close {
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f4f7;
+
+    color: #26344a;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.contact-modal-close:hover {
+    background: #ffc8dc;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   MODAL ICON
+========================================================= */
+
+.contact-modal-icon {
+    width: 65px;
+
+    height: 65px;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #ffec91;
+
+    color: #26344a;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   MODAL TITLE
+========================================================= */
+
+.contact-modal-card h2 {
+    text-align: center;
+
+    font-size: 28px;
+
+    color: #26344a;
+
+    margin-bottom: 5px;
+}
+
+
+/* =========================================================
+   MODAL SUBTITLE
+========================================================= */
+
+.contact-modal-subtitle {
+    text-align: center;
+
+    color: #71849a;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   CONTACT OPTION
+========================================================= */
+
+.contact-option {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 15px;
+
+    margin-bottom: 12px;
+
+    border-radius: 15px;
+
+    text-decoration: none;
+
+    background: #f8fafc;
+
+    border: 1px solid #e4e9ee;
+
+    color: #26344a;
+
+    transition: .2s ease;
+}
+
+
+.contact-option:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   CONTACT ICON BOX
+========================================================= */
+
+.contact-option-icon {
+    width: 45px;
+
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   MESSENGER
+========================================================= */
+
+.messenger-icon {
+    background: #dce8ff;
+
+    color: #1877f2;
+}
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+.email-icon {
+    background: #ffe3d3;
+
+    color: #e66b25;
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+.phone-icon {
+    background: #d9f5e3;
+
+    color: #1b9c54;
+}
+
+
+/* =========================================================
+   CONTACT TEXT
+========================================================= */
+
+.contact-option-text {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.contact-option-text strong {
+    font-size: 15px;
+
+    color: #26344a;
+}
+
+
+.contact-option-text span {
+    font-size: 12px;
+
+    color: #71849a;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.contact-arrow {
+    color: #9aa8b6;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MODAL CLOSE BUTTON
+========================================================= */
+
+.contact-modal-cancel {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #17243a;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.contact-modal-cancel:hover {
+    background: #26344a;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 200px;
+    }
+
+
+    .main-content {
+        margin-left: 200px;
+
+        width: calc(100% - 200px);
+    }
+
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    section {
+        padding: 45px 50px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .app-layout {
+        flex-direction: column;
+    }
+
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        min-height: auto;
+
+        padding: 15px;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        overflow-x: auto;
+
+        border-right: none;
+
+        border-bottom: 1px solid #B0D8EB;
+    }
+
+
+    .sidebar-brand {
+        min-width: 130px;
+
+        margin: 0 20px 0 0;
+    }
+
+
+    .sidebar-logo-circle,
+    .sidebar-brand-name,
+    .sidebar-subtitle,
+    .menu-title {
+        display: none;
+    }
+
+
+    .sidebar-section {
+        margin: 0;
+    }
+
+
+    .sidebar-menu {
+        flex-direction: row;
+
+        gap: 5px;
+    }
+
+
+    .sidebar-link {
+        white-space: nowrap;
+    }
+
+
+    .logout-btn {
+        margin: 0 0 0 10px;
+
+        white-space: nowrap;
+
+        min-width: 90px;
+    }
+
+
+    .main-content {
+        margin-left: 0;
+
+        width: 100%;
+    }
+
+
+    .site-header {
+        height: 75px;
+
+        padding: 0 15px;
+    }
+
+
+    .hero {
+        width: calc(100% - 30px);
+
+        margin: 25px auto;
+
+        padding: 55px 20px;
+    }
+
+
+    .hero h1 {
+        font-size: 29px;
+    }
+
+
+    .hero p {
+        font-size: 14px;
+    }
+
+
+    section {
+        width: calc(100% - 30px);
+
+        padding: 35px 25px;
+
+        margin: 25px auto;
+    }
+
+
+    section h2 {
+        font-size: 21px;
+    }
+
+
+    .two-column {
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    .two-column > div {
+        width: 100%;
+    }
+
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 12px;
+    }
+
+
+    .stat {
+        padding: 20px 10px;
+    }
+
+
+    .stat h3 {
+        font-size: 21px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .site-header {
+        justify-content: space-between;
+
+        gap: 8px;
+    }
+
+
+    .back-btn,
+    .contact-btn {
+        padding: 9px 13px;
+
+        font-size: 11px;
+    }
+
+
+    .hero {
+        padding: 45px 18px;
+    }
+
+
+    .hero h1 {
+        font-size: 26px;
+    }
+
+
+    section {
+        width: calc(100% - 20px);
+
+        padding: 28px 18px;
+    }
+
+
+    section h2 {
+        font-size: 19px;
+    }
+
+
+    section p {
+        font-size: 13px;
+    }
+
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+
+    footer {
+        padding: 18px 12px;
+    }
+
+
+    footer p {
+        font-size: 10px;
+    }
+
+
+    /* =====================================================
+       MODAL MOBILE
+    ===================================================== */
+
+    .contact-modal {
+        padding: 15px;
+    }
+
+
+    .contact-modal-card {
+        padding: 30px 20px 25px;
+
+        border-radius: 20px;
+    }
+
+
+    .contact-modal-card h2 {
+        font-size: 24px;
+    }
+
+
+    .contact-modal-icon {
+        width: 58px;
+
+        height: 58px;
+
+        font-size: 24px;
+    }
+
+
+    .contact-option {
+        padding: 13px;
+    }
+
+}
